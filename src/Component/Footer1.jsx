@@ -3,9 +3,9 @@ import React from 'react';
 export default class Footer1 extends React.Component{
     render(){
         return(
-            <div className="bg-light" style={{height: '280px'}}>
-                <div className="mt-5 mt-md-0 pt-3">
-                    <div className="container-md d-flex align-items-center pt-3" style={{height: '280px'}}>
+            <div className="bg-light height-300">
+                <div className="container-md mt-5 mt-md-0 pt-3">
+                    <div className="d-flex align-items-center pt-3" style={{height: '280px'}}>
                         <p className="text-justify mt-5 mt-md-0">
                             <b className="d-none d-md-block">Toko Furnitur Online, Solusi Untuk Kebutuhan Furniture Minimalis & Modernmu</b>
                             <p className="d-block d-md-none mt-2">Toko Furnitur Online, Solusi Untuk Kebutuhan Furniture Minimalis & Modernmu</p>
