@@ -6,20 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
 
 import emptyImage from '../Supports/Assets/gambarkosong.png'
-import startsHere from '../Supports/Assets/cozyplace-starts-here.png'
 
 export default class FlashSale extends Component {
   render() {
     const settings = {
       dots: true,
-      infinite: false,
-      speed: 500,
+      infinite: true,
+      speed: 1000,
       slidesToShow: 4,
       slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 3000,
+      autoplay: false,
+      autoplaySpeed: 1000,
       pauseOnHover: true,
-      initialSlide: 1,
+      initialSlide: 0,
       responsive: [
         {
             breakpoint: 1024,
@@ -35,7 +34,7 @@ export default class FlashSale extends Component {
             settings: {
               slidesToShow: 2,
               slidesToScroll: 1,
-              initialSlide: 2
+              initialSlide: 1
             }
           },
           {
@@ -56,9 +55,6 @@ export default class FlashSale extends Component {
                     <h5>Its your chance to get our finest products but in a cheap price. Don't Miss It!</h5>
                 </div>
                 <Slider {...settings} className="bg-warning card-deck mt-3">
-                    <div className="mt-3 width-250 d-flex align-items-center justify-content-center height-300">
-                        <img src={startsHere} class="width-300 pl-3" alt="..."/>
-                    </div>
                     <div>
                         <div className="card width-250 align-self-center m-3 card-radius height-300">
                             <img src={emptyImage} className="card-img-top width-250 pt-3 pl-4 pr-4" alt="..." />
@@ -171,13 +167,8 @@ export default class FlashSale extends Component {
                             </small></p>
                         </div>
                     </div>
-                    <div>
-                        <div className="mt-3 width-250 d-flex align-items-center justify-content-center height-300">
-                            <button type="button" class="btn btn-light width-150">Show more!</button>
-                        </div>
-                    </div>
                 </Slider>
-            <p className="text-muted font-weight-light">*occur during a limited time    </p>
+            <p className="text-muted font-weight-light">*occur during a limited time</p>
         </div>
     </div>
     );

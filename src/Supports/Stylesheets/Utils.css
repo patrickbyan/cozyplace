@@ -221,17 +221,27 @@
 
 /* Link */
 .cp-link{
-    color: inherit;
+    color: black;
 }
 
 .cp-link:hover{
     color: inherit;
+    font-weight: bold;
     text-decoration: none;
 }
 
 
+/* clickable element */
+.cp-clickable-element{
+    cursor: pointer;
+    -webkit-user-select: none; /*Safari */
+    -moz-user-select: none; /*Firefox */
+    -ms-user-select: none; /*Edge */
+    user-select: none; /*Standad */
+}
 
 /* Radius */
 .card-radius{
     border-radius: 15px 50px 30px
 }
+

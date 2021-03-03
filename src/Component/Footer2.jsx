@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '../Supports/Assets/logo.png'
 import { faEnvelope, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 
-// import Register from '../Page/Register'
-import Signup from '../Page/Signup'
 
 export default class Footer2 extends React.Component{
 
@@ -55,9 +53,7 @@ export default class Footer2 extends React.Component{
                                         <input type="text" ref="inputUser" class="form-control" placeholder="Email atau Nomor HP Mu!" style={{height: "3em", width: '250px', marginRight: '20px'}} />
                                     </div> */}
                                     <div>
-                                        {/* <button type="submit" className="btn btn-warning mb-2 btn-lg" style={{width: '200px'}}> */}
-                                            <Signup />
-                                        {/* </button> */}
+                                        <input type="button" value="Register Now!" className="btn btn-warning mb-2 btn-lg width-150" onClick={() => {window.location = '/Register'}} />
                                     </div>
                                 </form>
                             </li>

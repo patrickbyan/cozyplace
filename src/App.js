@@ -12,7 +12,8 @@ import Footer2 from './Component/Footer2'
 import LandingPage from './Page/LandingPage'
 import Register from './Page/Register'
 import LoginPage from './Page/LoginPage'
-import Producs from './Page/Products'
+import Products from './Page/Products'
+import Signup from './Page/Signup'
 
 // CSS
 import './Supports/Stylesheets/Utils.css'
@@ -30,7 +31,8 @@ export default class App extends React.Component {
               <Route exact path='/' component={LandingPage} />
               <Route path='/Register' component={Register} />
               <Route path='/Login' component={LoginPage} />
-              <Route path='/Products' component={Producs} />
+              <Route path='/Signup' component={Signup} />
+              <Route path='/Products' component={Products} />
             </Switch>
           <Footer1 />
           <Footer2 />
