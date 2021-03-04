@@ -7,14 +7,6 @@
       "password": "clownmage",
       "roles": "user",
       "id": 1
-    },
-    {
-      "phone": "",
-      "email": "belinda@gmail.com",
-      "username": "belinda",
-      "password": "belinda",
-      "roles": "user",
-      "id": 2
     }
   ],
   "products": [
@@ -34,7 +26,7 @@
     {
       "id": 2,
       "name": "Sofa Dudukan Aegis",
-      "brand": "Olympic",
+      "brand": "Aegis",
       "category": "Sofa",
       "stock": 20,
       "price": 8499000,
@@ -47,7 +39,7 @@
     {
       "id": 3,
       "name": "Sofa Dudukan Mutoyo",
-      "brand": "Olympic",
+      "brand": "Mutoyo",
       "category": "Sofa",
       "stock": 20,
       "price": 1999000,
@@ -60,7 +52,7 @@
     {
       "id": 4,
       "name": "Sofa Ruang Tamu Vienna L Houston",
-      "brand": "Olympic",
+      "brand": "Houston",
       "category": "Sofa",
       "stock": 20,
       "price": 9213100,
@@ -73,7 +65,7 @@
     {
       "id": 5,
       "name": "Sofa Bran 2+1",
-      "brand": "Olympic",
+      "brand": "Bran",
       "category": "Sofa",
       "stock": 20,
       "price": 3266100,
@@ -86,7 +78,7 @@
     {
       "id": 6,
       "name": "Meja TV Wellington",
-      "brand": "Olympic",
+      "brand": "Wellington",
       "category": "Meja",
       "stock": 20,
       "price": 3149000,
@@ -99,7 +91,7 @@
     {
       "id": 7,
       "name": "Meja TV Oolong",
-      "brand": "Olympic",
+      "brand": "Oolong",
       "category": "Meja",
       "stock": 20,
       "price": 4799200,
@@ -112,7 +104,7 @@
     {
       "id": 8,
       "name": "Meja TV Onyx",
-      "brand": "Olympic",
+      "brand": "Onyx",
       "category": "Meja",
       "stock": 20,
       "price": 1019000,
@@ -125,7 +117,7 @@
     {
       "id": 9,
       "name": "Meja TV Ronnie",
-      "brand": "Olympic",
+      "brand": "Ronnie",
       "category": "Meja",
       "stock": 20,
       "price": 3999000,
@@ -138,7 +130,7 @@
     {
       "id": 10,
       "name": "Meja TV Zeus",
-      "brand": "Olympic",
+      "brand": "Zeus",
       "category": "Meja",
       "stock": 20,
       "price": 4999000,
@@ -151,7 +143,7 @@
     {
       "id": 11,
       "name": "Lemari Bufet Onyx",
-      "brand": "Olympic",
+      "brand": "Onyx",
       "category": "Lemari",
       "stock": 20,
       "price": 1999000,
@@ -164,7 +156,7 @@
     {
       "id": 12,
       "name": "Lemari Mikku",
-      "brand": "Olympic",
+      "brand": "Mikku",
       "category": "Lemari",
       "stock": 20,
       "price": 2499000,
@@ -177,7 +169,7 @@
     {
       "id": 13,
       "name": "Lemari Adante Astrape",
-      "brand": "Olympic",
+      "brand": "Astrape",
       "category": "Lemari",
       "stock": 20,
       "price": 2429000,
@@ -190,7 +182,7 @@
     {
       "id": 14,
       "name": "Lemari Buku Uno",
-      "brand": "Olympic",
+      "brand": "Uno",
       "category": "Lemari",
       "stock": 20,
       "price": 1539000,
@@ -203,7 +195,7 @@
     {
       "id": 15,
       "name": "Lemari Buku Zaid",
-      "brand": "Olympic",
+      "brand": "Zaid",
       "category": "Lemari",
       "stock": 20,
       "price": 1199000,
@@ -216,7 +208,7 @@
     {
       "id": 16,
       "name": "Hamilton Lampu Lantai Minimalis Indoor White",
-      "brand": "Olympic",
+      "brand": "Hamilton",
       "category": "Lampu Lantai",
       "stock": 20,
       "price": 909000,
@@ -229,7 +221,7 @@
     {
       "id": 17,
       "name": "Baltimore Lampu Lantai Minimalis White Indoor",
-      "brand": "Olympic",
+      "brand": "Baltimore",
       "category": "Lampu Lantai",
       "stock": 20,
       "price": 909000,
@@ -242,7 +234,7 @@
     {
       "id": 18,
       "name": "Baltimore Lampu Lantai Minimalis Black Indoor",
-      "brand": "Olympic",
+      "brand": "Baltimore",
       "category": "Lampu Lantai",
       "stock": 20,
       "price": 909000,
@@ -255,7 +247,7 @@
     {
       "id": 19,
       "name": "Louisville Lampu Lantai Minimalis Yellow Indoor",
-      "brand": "Olympic",
+      "brand": "Louisville",
       "category": "Lampu Lantai",
       "stock": 20,
       "price": 909000,
@@ -268,7 +260,7 @@
     {
       "id": 20,
       "name": "Hamilton Lampu Lantai Minimalis Indoor White",
-      "brand": "Olympic",
+      "brand": "Hamilton",
       "category": "Lampu Lantai",
       "stock": 20,
       "price": 909000,

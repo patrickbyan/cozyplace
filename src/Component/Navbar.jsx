@@ -42,19 +42,27 @@ export default class Navbar extends React.Component{
     }
 
     onLogin = () => {
-        let inputUsername = this.refs.inputUsername.value
+        let inputLogin = this.refs.inputLogin.value
         let inputPassword = this.refs.inputPassword.value
+        let inputLoginType = ''
 
-        console.log(inputUsername)
-        console.log(inputPassword)
+        if(inputLogin && inputPassword){
+            if(inputLogin[0] >= 0){
+                inputLoginType = 'phone'
+            }else{
+                for(let i = 0; i < inputLogin.length; i++){
+                    if(inputLogin.split('@').length === 2){
+                        inputLoginType = 'email'
+                    }else{
+                        inputLoginType = 'username'
+                    }
+                }
+            }
 
-        if(inputUsername && inputPassword){
-
-        
-        axios.get(LinkAPI + '?username=' + inputUsername + '&password=' + inputPassword)
+        axios.get(LinkAPI + `?${inputLoginType}=` + inputLogin + '&password=' + inputPassword)
         .then((res) => {
           if(res.data.length === 1){
-              this.setState({username: inputUsername, error: null, showModal: false})
+              this.setState({username: res.data[0].username, error: null, showModal: false})
               localStorage.setItem('id', res.data[0].id)
           }else{
             this.setState({error: 'Periksa Kembali Username / Password Kamu!'})
@@ -69,6 +77,7 @@ export default class Navbar extends React.Component{
             this.setState({error: 'Username / Password Harus Terisi'})
         }
 
+        
     }
 
     render(){
@@ -78,7 +87,7 @@ export default class Navbar extends React.Component{
                 <div className="container-md">
                     <div className='row align-items-center' style={{height: '50px'}}>
                         <div className='col-1'>
-                            <Link to='/' className="text-decoration-none text-dark"><img src={logo} class="width-100" alt="logo-cp" /></Link>
+                            <Link to='/' className="text-decoration-none text-dark"><img src={logo} className="width-100" alt="logo-cp" /></Link>
                         </div>
                         <div className='col-3 d-none d-md-block'>
                             <span className="mx-2"><Link to='/Products' className="cp-clickable-element cp-link">Products</Link></span>
@@ -113,9 +122,17 @@ export default class Navbar extends React.Component{
                                                 null
                                         }
                                     </span>
-                                    <span className="d-none d-md-block">
-                                        <FontAwesomeIcon icon={faUser} className="fa-lg cp-clickable-element" onClick={() => this.setState({showModal: true})} />
-                                    </span>
+                                    {
+                                        this.state.username?
+                                            <span className="d-none d-md-block">
+                                                <FontAwesomeIcon icon={faUser} className="fa-lg cp-clickable-element" onClick={() => alert(`${this.state.username} Harus Log-out Terlebih Dahulu`)} />
+                                            </span>
+                                        :
+                                            <span className="d-none d-md-block">
+                                                <FontAwesomeIcon icon={faUser} className="fa-lg cp-clickable-element" onClick={() => this.setState({showModal: true})} />
+                                            </span>
+
+                                    }
                                     <span className="ml-4">
                                         <FontAwesomeIcon icon={faHeart} className="fa-lg cp-clickable-element"/>
                                     </span>
@@ -138,7 +155,7 @@ export default class Navbar extends React.Component{
                                     <div className="input-group-prepend">
                                         <input type="text" className="form-control" placeholder="Cari Produk" />
                                         <span className="input-group-text align-items-center">
-                                            <FontAwesomeIcon icon={faSearch} className="fa-lg" onClick="" />
+                                            <FontAwesomeIcon icon={faSearch} className="fa-lg cp-clickable-element" />
                                         </span>
                                     </div>
                                 </div>
@@ -151,10 +168,10 @@ export default class Navbar extends React.Component{
                 <ModalHeader>Login Page</ModalHeader>
                     <ModalBody>
                         <div>
-                            <input type='text' ref="inputUsername" placeholder='Masukan username' className='form form-control' />
+                            <input type='text' ref="inputLogin" placeholder='Username / Nomor Handphone / Email' className='form form-control' />
                         </div>
                         <div>
-                            <input type='password' ref="inputPassword" placeholder='Masukan password' className='form form-control my-3' />
+                            <input type='password' ref="inputPassword" placeholder='Password' className='form form-control my-3' />
                         </div>
                         <div>
                             <p className="text-warning cp-font-size-14">
@@ -169,6 +186,11 @@ export default class Navbar extends React.Component{
                         <div className="d-flex mt-3">
                             <input type='button' value='Login' className='btn btn-warning' onClick={this.onLogin} />
                             <input type='button' value='Cancel' className='btn btn-danger ml-2' onClick={() => this.setState({showModal: false})} />
+                        </div>
+                        <div className="mt-5 text-center">
+                            <p>
+                                Don't have account? <Link to="/Register" onClick={() => this.setState({showModal: false})}><span className="font-weight-bold">Register here!</span></Link>
+                            </p>
                         </div>
                     </ModalBody>
                     <ModalFooter></ModalFooter>
