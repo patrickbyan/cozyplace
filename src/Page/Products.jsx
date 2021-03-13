@@ -3,6 +3,7 @@ import { DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, Uncontrol
 import axios from 'axios';
 import LinkProduct from '../Supports/Constants/linkProduct'
 import Slider from "react-slick"
+import { Link } from 'react-router-dom'
 
 export default class Products extends React.Component{
     state = {
@@ -111,6 +112,8 @@ export default class Products extends React.Component{
             slidesToShow: 1,
             slidesToScroll: 1,
             initialSlide: 0,
+            autoplay: false,
+            autoplaySpeed: 1000,
         }
 
         return(
@@ -121,8 +124,7 @@ export default class Products extends React.Component{
                         <nav>
                             <ol className="breadcrumb cp-bg-dark-grey pt-3 ml-n3">
                                 <li className="breadcrumb-item"><a href="/" className="cp-link font-weight-light">Home</a></li>
-                                <li className="breadcrumb-item"><a href="/Products" className="cp-link font-weight-light">Products</a></li>
-                                <li className="breadcrumb-item active font-weight-lighter" aria-current="page">Daftar Produk Kami</li>
+                                <li className="breadcrumb-item active font-weight-lighter" aria-current="page">Products</li>
                             </ol>
                         </nav>
                     </div>
@@ -193,6 +195,7 @@ export default class Products extends React.Component{
                                 this.state.dataProducts.map((value, index) => {
                                     return(
                                         <>
+                                        <Link to={`/detailProduct/${value.id}`} className="text-decoration-none cp-link">
                                             <div className="col mb-4" key={index}>
                                                 <div className="card full-radius height-300">
                                                     <Slider {...cardImg}>
@@ -231,14 +234,11 @@ export default class Products extends React.Component{
                                                                     </span>
                                                                     </>
                                                                 </div>
-                                                                
-                                                                
                                                             </>
                                                             :
                                                                 <p className="font-weight-bold">
                                                                     Rp. {(value.price).toLocaleString()}
                                                                 </p>
-
                                                         }
                                                        
                                                         </div>
@@ -250,6 +250,7 @@ export default class Products extends React.Component{
                                                     </div>
                                                 </div>
                                             </div>
+                                        </Link>
                                         </>
                                     )
                                 })

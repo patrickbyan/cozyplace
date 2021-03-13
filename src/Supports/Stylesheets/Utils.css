@@ -97,8 +97,16 @@
     font-size: 10px;
 }
 
+.cp-font-size-11-5{
+    font-size: 11.5px;
+}
+
 .cp-font-size-12{
     font-size: 12px;
+}
+
+.cp-font-size-13{
+    font-size: 13px;
 }
 
 .cp-font-size-14{
@@ -251,6 +259,26 @@
     width: 500px;
 }
 
+.width-600{
+    width: 600px;
+}
+
+.width-700{
+    width: 700px;
+}
+
+.width-800{
+    width: 800px;
+}
+
+.width-900{
+    width: 900px;
+}
+
+.width-1000{
+    width: 1000px;
+}
+
 
 /* Small Height */
 .height-10{
@@ -389,10 +417,9 @@
 }
 
 .cp-link:hover{
-    color: rgb(83, 0, 0);
+    color: rgb(88, 30, 30);
     text-decoration: none;
 }
-
 
 /* clickable element */
 .cp-clickable-element{

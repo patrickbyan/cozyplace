@@ -1,3 +1,3 @@
-const LinkProduct = 'http://localhost:2000/Products'
+const LinkProduct = 'http://localhost:2000/products'
 
 export default LinkProduct

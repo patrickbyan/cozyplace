@@ -5,21 +5,29 @@ import logo from '../Supports/Assets/logo.png'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import LinkAPI from '../Supports/Constants/linkAPI'
+import LinkCarts from '../Supports/Constants/LinkCarts'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { connect } from 'react-redux'
+import { text } from '@fortawesome/fontawesome-svg-core';
 
-export default class Navbar extends React.Component{
+class Navbar extends React.Component{
     state = {
         username: null,
         showModal: false,
-        error: null
+        error: null,
+        currentTotalCarts: 0,
+        id: localStorage.getItem('id'),
+        showPassword: false,
+        button: true
     }
 
     componentDidMount(){
         this.getUsername()
+        this.getCurrentTotalCarts()
     }
 
     getUsername = () => {
-        let id = localStorage.getItem('id')
+        let id = this.state.id
 
         if(id){
             axios.get(LinkAPI + `/${id}`)
@@ -64,6 +72,7 @@ export default class Navbar extends React.Component{
           if(res.data.length === 1){
               this.setState({username: res.data[0].username, error: null, showModal: false})
               localStorage.setItem('id', res.data[0].id)
+              window.location = '/'
           }else{
             this.setState({error: 'Periksa Kembali Username / Password Kamu!'})
           }
@@ -76,10 +85,27 @@ export default class Navbar extends React.Component{
         }else{
             this.setState({error: 'Username / Password Harus Terisi'})
         }
-
-        
     }
 
+    getCurrentTotalCarts = () => {
+        var id = this.state.id
+
+        axios.get(LinkCarts + `?idUser=${id}`)
+        .then((res) => {
+            Array.prototype.sum = function(){
+                var sumQtyCarts = 0
+                for(let i = 0; i < res.data.length; i++){
+                    sumQtyCarts += res.data[i].quantity
+                }
+                return sumQtyCarts
+            }
+            this.setState({currentTotalCarts: res.data.sum("quantity")})
+        })
+
+        .catch((err) => {
+            console.log(err)
+        })
+    }
     render(){
         return(
         <>
@@ -125,7 +151,9 @@ export default class Navbar extends React.Component{
                                     {
                                         this.state.username?
                                             <span className="d-none d-md-block">
-                                                <FontAwesomeIcon icon={faUser} className="fa-lg cp-clickable-element" onClick={() => alert(`${this.state.username} Harus Log-out Terlebih Dahulu`)} />
+                                                <Link to='/user-profile/profile' className="cp-clickable-element cp-link">
+                                                    <FontAwesomeIcon icon={faUser} className="fa-lg cp-clickable-element" />
+                                                </Link>
                                             </span>
                                         :
                                             <span className="d-none d-md-block">
@@ -136,8 +164,46 @@ export default class Navbar extends React.Component{
                                     <span className="ml-4">
                                         <FontAwesomeIcon icon={faHeart} className="fa-lg cp-clickable-element"/>
                                     </span>
-                                    <span className="ml-4 d-none d-md-block">
-                                        <FontAwesomeIcon icon={faShoppingBag} className="fa-lg cp-clickable-element"/>
+                                    <span className="ml-4 d-none d-md-block position-relative">
+                                    <Link to="/cartpage">
+                                        <FontAwesomeIcon icon={faShoppingBag} className="fa-lg cp-clickable-element cp-link text-decoration-none text-dark"/>
+                                            {
+                                                this.state.id?
+                                                        <div className="badge badge-pill badge-danger border border-light position-absolute" style={{position: 'absolute', top: '-5px', left: '13px'}}>
+                                                            {
+                                                                this.props.carts.data?
+                                                                    this.props.carts.data.sum("quantity")
+                                                                :
+                                                                    this.state.currentTotalCarts
+                                                            }
+                                                        </div>
+                                                :
+                                                    <div className="badge badge-pill badge-danger border border-light position-absolute" style={{position: 'absolute', top: '-5px', left: '13px'}}>
+                                                    
+                                                    </div>
+
+                                            }
+                                    </Link>
+                                        {/* {
+                                            this.state.id?
+                                                <Link to={`/CartPage/${this.state.id}`}>
+                                                {
+                                                    this.props.carts.data?
+                                                    <>
+                                                    <Link to={`/CartPage/${this.state.id}`}>
+                                                        <FontAwesomeIcon icon={faShoppingBag} className="fa-lg cp-clickable-element cp-link text-decoration-none text-dark"/>
+                                                        <span className="badge badge-pill badge-danger border border-light ml-n1 cp-clickable-element cp-link text-decoration-none" style={{fontSize: '10px',borderRadius: '50px'}}>
+                                                            {this.state.currentTotalCarts}
+                                                        </span>
+                                                    </Link>
+                                                    </>
+                                                    :
+                                                        <FontAwesomeIcon icon={faShoppingBag} className="fa-lg cp-clickable-element cp-link text-decoration-none text-dark"/>
+                                                }
+                                                </Link>
+                                            :
+                                                <FontAwesomeIcon icon={faShoppingBag} className="fa-lg cp-link text-decoration-none text-dark"/>
+                                        } */}
                                     </span>
                                     <span className="ml-4 d-block d-md-none">
                                         <FontAwesomeIcon icon={faCartPlus} className="fa-lg cp-clickable-element"/>
@@ -170,8 +236,9 @@ export default class Navbar extends React.Component{
                         <div>
                             <input type='text' ref="inputLogin" placeholder='Username / Nomor Handphone / Email' className='form form-control' />
                         </div>
-                        <div>
-                            <input type='password' ref="inputPassword" placeholder='Password' className='form form-control my-3' />
+                        <div className="row container">
+                            <input type={this.state.showPassword === false? 'password' : 'text'} ref="inputPassword" placeholder='Password' className='form form-control my-3 col-10' />
+                            <input type='button' value={this.state.button === true? 'show' : 'hide'} className='btn btn-outline-secondary text-center my-3 col-2' onClick={() => this.setState({showPassword: !this.state.showPassword, button: !this.state.button})} />       
                         </div>
                         <div>
                             <p className="text-warning cp-font-size-14">
@@ -199,3 +266,11 @@ export default class Navbar extends React.Component{
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return{
+        carts: state.carts
+    }
+}
+
+export default connect(mapStateToProps, '')(Navbar)

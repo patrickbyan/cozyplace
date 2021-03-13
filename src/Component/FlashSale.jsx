@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import Axios from 'axios'
 import LinkProduct from '../Supports/Constants/linkProduct'
+import { Link } from 'react-router-dom'
 
 
 export default class FlashSale extends Component {
@@ -43,7 +44,9 @@ export default class FlashSale extends Component {
                                         {value.diskon}%
                                     </div>
                                 </div>
-                                <img src={value.image1} className="card-img-top width-250 height-120 mt-n5 pt-3 pl-4 pr-4" alt="..." />
+                                <Link to={`/detailProduct/${value.id}`}>
+                                    <img src={value.image1} className="card-img-top width-250 height-120 mt-n5 pt-3 pl-4 pr-4" alt="..." />
+                                </Link>
                             <div className="card-body">
                                 <h6 className="card-title h6 cp-dark-grey h-25 mt-n2" key={index}>{value.name}</h6>
                                 <p className="card-text font-weight-lighter cp-font-size-14 mt-3"><del>Rp {(value.price).toLocaleString()}</del></p>

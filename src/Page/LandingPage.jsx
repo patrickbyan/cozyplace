@@ -32,9 +32,9 @@ export default class LandingPage extends Component {
                     </div>
                 </Slider>
                 {/* <div className="container text-center text-md-left card-img-overlay border border-dark" style={{width: '10px', height: '100px', paddingTop: '200px'}}> */}
-                    <h1 className="container cp-font-size-70 text-center card-img-overlay" style={{width: '500px', height: '100px', paddingTop: '200px'}} >
-                        <img src={slogan} alt="..."/>
-                    </h1>
+                <div className="container cp-font-size-70 text-center card-img-overlay" style={{width: '500px', height: '100px', paddingTop: '200px'}} >
+                    <img src={slogan} alt="..."/>
+                </div>
                     {/* <input type="button" className="btn btn-warning" value="Shop Now!" /> */}
                 {/* </div> */}
             </div>

@@ -14,29 +14,45 @@ import Register from './Page/Register'
 import Products from './Page/Products'
 import Signup from './Page/Signup'
 import DetailProducts from './Page/DetailProducts'
+import CartPage from './Page/CartPage'
+import Checkout from './Page/Checkout'
 
 // CSS
 import './Supports/Stylesheets/Utils.css'
 import './Supports/Stylesheets/LandingPage.css'
 import './Supports/Stylesheets/Products.css'
 
+// REDUX
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import allReducer from './Redux/Reducers/Index'
+import UserProfile from './Page/UserProfile'
+
+const store = createStore(allReducer, applyMiddleware(thunk))
+
 export default class App extends React.Component {
   render(){
     return(
       <>
-        <BrowserRouter>
-          <Header />
-          <Navbar />
-            <Switch>
-              <Route exact path='/' component={LandingPage} />
-              <Route path='/Register' component={Register} />
-              <Route path='/Signup' component={Signup} />
-              <Route path='/Products' component={Products} />
-              <Route path='/DetailProducts' component={DetailProducts} />
-            </Switch>
-          <Footer1 />
-          <Footer2 />
-        </BrowserRouter>
+        <Provider store={store}>
+          <BrowserRouter>
+            <Header />
+            <Navbar />
+              <Switch>
+                <Route exact path='/' component={LandingPage} />
+                <Route path='/Register' component={Register} />
+                <Route path='/Signup' component={Signup} />
+                <Route path='/Products' component={Products} />
+                <Route path='/DetailProduct/:idProduct' component={DetailProducts} />
+                <Route path='/cartpage' component={CartPage} />
+                <Route path='/checkout' component={Checkout} />
+                <Route path='/user-profile' component={UserProfile} />
+              </Switch>
+            <Footer1 />
+            <Footer2 />
+          </BrowserRouter>
+        </Provider>
       </>
     )
   }

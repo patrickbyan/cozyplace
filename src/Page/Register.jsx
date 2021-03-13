@@ -3,6 +3,9 @@ import PhoneNumberValidator from '../Supports/Functions/PhoneNumber'
 import EmailValidator from '../Supports/Functions/Email'
 import Axios from 'axios';
 import LinkAPI from '../Supports/Constants/linkAPI'
+import Swal2 from 'sweetalert2'
+
+import checkUserLogin from '../Supports/Functions/checkUserLogin'
 
 export default class Register extends React.Component{
 
@@ -10,7 +13,42 @@ export default class Register extends React.Component{
         error: null,
         phoneNumber: null,
         email: null,
-        buttonDisabled: true
+        isUserLogin: false
+    }
+
+    componentDidMount(){
+        this.onCheckUserLogin()
+    }
+
+    onCheckUserLogin = () => {
+        let id = localStorage.getItem('id')
+
+        let result = checkUserLogin(id)
+        console.log(result)
+
+        this.setState({isUserLogin: result})
+
+        if(result === true){
+            Swal2.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Anda Harus Login Terlebih Dahulu',
+                confirmButtonText: `Back to Home Page`
+            })
+            .then((res) => {
+                Swal2.fire({
+                    position: 'top',
+                    icon: 'info',
+                    title: 'Redirecting: Home Page',
+                    showConfirmButton: false,
+                    timer: 500,
+                    timerProgressBar: true,
+                })
+                .then((res) => {
+                    window.location = "/"
+                })
+            })
+        }
     }
 
     submitRegister = () => {
@@ -100,7 +138,7 @@ export default class Register extends React.Component{
                                 null // else, null/tampil
                             }
                         </p>
-                        <input type='button' value='Register' className="btn btn-warning w-100 mt-3" onClick={this.sendDataToAPI} />
+                        <input type='button' disabled = {this.state.error? true : false} value='Register' className="btn btn-warning w-100 mt-3" onClick={this.sendDataToAPI} />
                     </div>
                 </div>
             </div>

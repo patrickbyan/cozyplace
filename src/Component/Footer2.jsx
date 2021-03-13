@@ -94,6 +94,7 @@ export default class Footer2 extends React.Component{
                                             :
                                                 <input type="button" value="Register Now!" className="btn btn-warning mb-2 btn-lg width-150" onClick={() => {window.location = '/Register'}} />
                                         }
+                                        {/* ini coba cari tahu */}
                                     </div>
                                 </form>
                             </li>
