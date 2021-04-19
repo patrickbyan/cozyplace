@@ -16,6 +16,8 @@ import Signup from './Page/Signup'
 import DetailProducts from './Page/DetailProducts'
 import CartPage from './Page/CartPage'
 import Checkout from './Page/Checkout'
+import ProductManagement from './Page/Admin/ProductManagement'
+import ProductManagementDetail from './Page/Admin/ProductManagementDetail'
 
 // CSS
 import './Supports/Stylesheets/Utils.css'
@@ -46,8 +48,10 @@ export default class App extends React.Component {
                 <Route path='/Products' component={Products} />
                 <Route path='/DetailProduct/:idProduct' component={DetailProducts} />
                 <Route path='/cartpage' component={CartPage} />
-                <Route path='/checkout' component={Checkout} />
+                <Route path='/checkout/:idTransaction' component={Checkout} />
                 <Route path='/user-profile' component={UserProfile} />
+                <Route path='/admin' component={ProductManagement} />
+                <Route path='/admin-detail/:idProduct' component={ProductManagementDetail} />
               </Switch>
             <Footer1 />
             <Footer2 />

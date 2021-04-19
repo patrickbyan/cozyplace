@@ -1,9 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import LinkProduct from '../Supports/Constants/linkProduct';
-import LinkCart from '../Supports/Constants/LinkCarts'
 import logo from '../Supports/Assets/logo.png'
 import { connect } from 'react-redux'
 

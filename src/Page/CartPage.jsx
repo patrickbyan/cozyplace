@@ -5,7 +5,7 @@ import LinkProduct from '../Supports/Constants/linkProduct'
 import LinkTransaction from '../Supports/Constants/LinkTransaction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom'
-import { faMinusCircle, faPlus, faPlusCircle, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faMinusCircle, faPlusCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 import swal from 'sweetalert'
 

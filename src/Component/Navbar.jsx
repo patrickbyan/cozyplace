@@ -8,7 +8,6 @@ import LinkAPI from '../Supports/Constants/linkAPI'
 import LinkCarts from '../Supports/Constants/LinkCarts'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { connect } from 'react-redux'
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 class Navbar extends React.Component{
     state = {
