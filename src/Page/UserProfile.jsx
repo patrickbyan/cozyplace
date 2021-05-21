@@ -42,21 +42,21 @@ export default class UserProfile extends React.Component{
                 </nav>
                 <div className="row">
                     <div className="col-12">
-                        <Link to="/user-profile/profile">
+                        <Link to="/user-profile/transaction-history">
                             <button type="button" className="btn btn-warning badge-pill" onClick={() => this.setState({isRefresh: true})}>
-                                Profile
+                                Transaction History
                             </button>
                         </Link>
-                        <Link to="/user-profile/transaction-history">
-                            <button type="button" className="btn btn-warning badge-pill mx-3" onClick={() => this.setState({isRefresh: true})}>
-                                Transaction History
+                        {/* <Link to="/user-profile/profile">
+                            <button type="button" className="btn btn-warning badge-pill" onClick={() => this.setState({isRefresh: true})}>
+                                Profile
                             </button>
                         </Link>
                         <Link to="/user-profile/Address">
                             <button type="button" className="btn btn-warning badge-pill" onClick={() => this.setState({isRefresh: true})}>
                                 Address
                             </button>
-                        </Link>
+                        </Link> */}
                     </div>
                     <div className="col-12 mt-3">
                         
@@ -64,7 +64,7 @@ export default class UserProfile extends React.Component{
                     <div className="col-12">
                             <Switch>
                                 <Route exact path='/' component={LandingPage} />
-                                <Route path='/user-profile/profile' component={Profile} />
+                                {/* <Route path='/user-profile/profile' component={Profile} /> */}
                                 <Route path='/user-profile/transaction-history' component={TransactionHistory} />
                             </Switch>
                     </div>

@@ -1,12 +1,13 @@
 import axios from 'axios'
 import LinkCart from '/Important-Document/Purwadhika/Class/Front-End/Patrick_Project_Ecommerce/cozyplace_patrick/src/Supports/Constants/LinkCarts'
 import Swal2 from 'sweetalert2'
+import LinkProduct from '../../Supports/Constants/linkProduct'
+import { Redirect } from 'react-router'
 
 export const getDataCart = (idProduct, idUser, quantity) => {
     return(dispatch) => {
         axios.get(LinkCart + `?idProduct=${idProduct}`)
         .then((res) => {
-            console.log(res.data)
             if(res.data.length === 0){
                 axios.post(LinkCart, {idProduct: idProduct, idUser: idUser, quantity: quantity})
                 .then((res) => {
@@ -76,6 +77,32 @@ export const getDataCart = (idProduct, idUser, quantity) => {
             }
         })
         .catch((err)=>{
+            console.log(err)
+        })
+    }
+}
+
+export const searchText = (search) => {
+    return(dispatch) => {
+        dispatch({
+            type: 'SEARCH_ACTION_SUCCESS',
+            payload: search
+        })
+
+        axios.get(LinkProduct + '?name_like=' + search)
+        .then((res) => {
+            if(search.length === 0){
+                dispatch({
+                    type: 'SEARCH_DATA_SUCCESS'
+                })
+            }else{
+                dispatch({
+                    type: 'SEARCH_DATA_SUCCESS',
+                    payload: res.data
+                })
+            }
+        })
+        .catch((err) => {
             console.log(err)
         })
     }

@@ -191,8 +191,8 @@ export default class CartPage extends react.Component{
         return(
             <div className="container">
                 <div className="row"> 
-                    <div className="card mb-3 col-7 border border-white shadow mt-3">.
-                        <div className="text-start h5">
+                    <div className="card mb-3 col-7 border border-white shadow mt-3">
+                        <div className="text-start h5 mt-3">
                             Keranjang
                         </div>
                         <hr style={{borderWidth: '5px'}}/>

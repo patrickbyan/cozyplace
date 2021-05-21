@@ -15,7 +15,12 @@ export default class TransactionHistory extends React.Component{
         detailData: null,
         idUser: localStorage.getItem('id'),
         showModal: false,
-        idSelected: null
+        idSelected: null,
+
+
+        weightTotal: 0,
+        quantityTotal: 0,
+        priceTotal: 0
     }
 
     componentDidMount(){
@@ -29,26 +34,6 @@ export default class TransactionHistory extends React.Component{
         axios.get(LinkTransaction + `?idUser=${idUser}&status=Paid`)
         .then((res) => {
             this.setState({data: res.data})
-
-            let dataTransaction = this.state.data.map((value, index) => {
-                return{
-                    idTransaction: value.id,
-                    tanggal: value.createdAt.split(' ')[0].split('-')[0],
-                    bulan: value.createdAt.split(' ')[0].split('-')[1],
-                    tahun: value.createdAt.split(' ')[0].split('-')[2],
-                    jam: value.createdAt.split(' ')[1],
-                    kategori: value.detail[0].productCategory,
-                    idProduct: value.detail[0].productID,
-                    merk: value.detail[0].productBrand,
-                    gambar: value.detail[0].productImage,
-                    nama: value.detail[0].productName,
-                    quantity: value.detail[0].productQuantity,
-                    harga: value.detail[0].productPrice,
-                    totalprice: value.detail[0].productPrice * value.detail[0].productQuantity,
-                    berat: value.detail[0].productWeight
-                }
-            })
-            this.setState({dataTransaction: dataTransaction})
         })
 
         .catch((err) => {
@@ -62,29 +47,51 @@ export default class TransactionHistory extends React.Component{
 
         axios.get(LinkTransaction + `/${idTransaction}`)
         .then((res) => {
-            this.setState({detailData: [res.data]})
+            this.setState({detailData: [res.data], showModal: true})
 
-            let detailTransaction = this.state.detailData.map((value, index) => {
-                return{
-                    idTransaction: value.id,
-                    tanggal: value.createdAt.split(' ')[0].split('-')[0],
-                    bulan: value.createdAt.split(' ')[0].split('-')[1],
-                    tahun: value.createdAt.split(' ')[0].split('-')[2],
-                    jam: value.createdAt.split(' ')[1],
-                    kategori: value.detail[0].productCategory,
-                    idProduct: value.detail[0].productID,
-                    merk: value.detail[0].productBrand,
-                    gambar: value.detail[0].productImage,
-                    nama: value.detail[0].productName,
-                    quantity: value.detail[0].productQuantity,
-                    harga: value.detail[0].productPrice,
-                    totalprice: value.detail[0].productPrice * value.detail[0].productQuantity,
-                    berat: value.detail[0].productWeight
-                }
+            var weightTotal = 0
+            this.state.detailData.map((value, index) => {
+                value.detail.map((value, index) => {
+                    weightTotal += value.productWeight
+                })
             })
 
-            this.setState({detailTransaction: detailTransaction, showModal: true})
-            console.log(idTransaction, detailTransaction)
+            var quantityTotal = 0
+            this.state.detailData.map((value, index) => {
+                value.detail.map((value, index) => {
+                    quantityTotal += value.productQuantity
+                })
+            })
+
+            var priceTotal = 0
+            this.state.detailData.map((value, index) => {
+                value.detail.map((value, index) => {
+                    priceTotal += value.productPrice
+                })
+            })
+
+            this.setState({weightTotal: weightTotal, quantityTotal: quantityTotal, priceTotal: priceTotal})
+
+            // let detailTransaction = this.state.detailData.map((value, index) => {
+            //     return{
+            //         idTransaction: value.id,
+            //         tanggal: value.createdAt.split(' ')[0].split('-')[0],
+            //         bulan: value.createdAt.split(' ')[0].split('-')[1],
+            //         tahun: value.createdAt.split(' ')[0].split('-')[2],
+            //         jam: value.createdAt.split(' ')[1],
+            //         kategori: value.detail[0].productCategory,
+            //         idProduct: value.detail[0].productID,
+            //         merk: value.detail[0].productBrand,
+            //         gambar: value.detail[0].productImage,
+            //         nama: value.detail[0].productName,
+            //         quantity: value.detail[0].productQuantity,
+            //         harga: value.detail[0].productPrice,
+            //         totalprice: value.detail[0].productPrice * value.detail[0].productQuantity,
+            //         berat: value.detail[0].productWeight
+            //     }
+            // })
+
+            // this.setState({detailTransaction: detailTransaction, showModal: true})
         })
 
         .catch((err) => {
@@ -92,12 +99,8 @@ export default class TransactionHistory extends React.Component{
         })
     }
 
-    cekState = () => {
-        console.log(this.state.detailData)
-    }
-
     render(){
-        if(this.state.dataTransaction === null){
+        if(this.state.data === null){
             return(
                 <div className="container text-center mt-5 height-150 mb-5">
                     <div className="spinner-grow text-warning" style={{width: '3rem', height: '3rem'}} role="status">
@@ -114,9 +117,6 @@ export default class TransactionHistory extends React.Component{
                 </h5>
 
                 <div className="container rounded-lg card">
-                    <div>
-                        <input type="button" onClick={this.cekState} value="Cek State" />
-                    </div>
                     {/* Kepala */}
                     <div className="row py-3">
                         <div className="col-4">
@@ -155,12 +155,12 @@ export default class TransactionHistory extends React.Component{
                             </div>
                         </div>
                     </div>
-
+                    
                     {/* Body */}
                     <div>
                         <div className="">
                             {
-                                this.state.dataTransaction.map((value, index) => {
+                                this.state.data.map((value, index) => {
                                     return(
                                         <div key={index} className="container shadow rounded-lg mb-4 pt-3">
                                             <div>
@@ -169,53 +169,70 @@ export default class TransactionHistory extends React.Component{
                                                     <FontAwesomeIcon icon={faShoppingBag} className="cp-font-size-16 text-warning" />
                                                 </span>
                                                 <span className="mx-3 font-weight-bold cp-font-size-14">
-                                                    {value.kategori}
+                                                    {value.productCategory}
                                                 </span>
                                                 <span className="mr-3 badge badge-warning text-light">
                                                     Selesai
                                                 </span>
                                                 <span className="text-muted cp-font-size-12 font-weight-normal text-nowrap">
-                                                    INV/{value.tahun}/{value.bulan.toUpperCase()}/{value.tanggal}/{this.state.idUser}/{value.idTransaction}
-                                                    {
-                                                        this.state.data[index].detail.map((value, index) => {
-                                                            return(
-                                                                `/${value.productID}`
-                                                            )
-                                                        })
-                                                    }
+                                                    {/* INV/{value.tahun}/{value.bulan.toUpperCase()}/{value.tanggal}/{this.state.idUser}/{value.idTransaction} */}
                                                 </span>
                                             </div>
+                                {
+                                    value.detail.map((val, idx) => {
+                                        return(
+                                            <>
+                                                {
+                                                    idx >= 1?
+                                                        <>
+                                                            <hr />
+                                                        </>
+                                                    :
+                                                        null
+                                                }
                                                 {/* Isi Body */}
-                                            <div className="my-2 font-weight-light">
-                                                Merk: <span className="font-weight-bold">{value.merk}</span>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-2">
-                                                    <img src={value.gambar} alt=".." style={{width: '100%'}} />
+                                                <div className="my-2 font-weight-light">
+                                                    Merk: <span className="font-weight-bold">{val.productBrand}</span>
                                                 </div>
-                                                <div className="col-8">
-                                                    <div className="font-weight-bold">
-                                                        {value.nama}
+                                                <div className="row">
+                                                    <div className="col-2">
+                                                        <img src={val.productImage} alt=".." style={{width: '100%'}} />
                                                     </div>
-                                                    <div className="font-weight-light text-muted cp-font-size-14">
-                                                        {value.quantity} barang x Rp {value.harga.toLocaleString()}
+                                                    <div className="col-8">
+                                                        <div className="font-weight-bold">
+                                                            {val.productName}
+                                                        </div>
+                                                        <div className="font-weight-light text-muted cp-font-size-14">
+                                                            {val.productQuantity} barang x Rp {val.productPrice.toLocaleString()}
+                                                        </div>
                                                     </div>
+                                                    
+                                                    {
+                                                        idx === 0?
+                                                        <>
+                                                            <div className="col-1 text-nowrap">
+                                                                <div className="font-weight-bold">
+                                                                    Total Belanja
+                                                                </div>
+                                                                <div>
+                                                                    Rp {this.state.data[index].total.toLocaleString()}
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    :
+                                                        null
+                                                    }
                                                 </div>
-                                                <div className="col-2 border-left">
-                                                    <div>
-                                                        Total Belanja
-                                                    </div>
-                                                    <div>
-                                                        Rp {value.totalprice.toLocaleString()}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </>
+                                        )
+                                    })
+                                }
                                             <div className="row align-items-center mt-3">
                                                 <div className="col-6">
 
                                                 </div>
                                                 <div className="col-3 text-right mb-3">
-                                                    <div className="text-warning font-weight-bold cp-font-size-14 cp-clickable-element" onClick={() => this.getDetail(value.idTransaction)}>
+                                                    <div className="text-warning font-weight-bold cp-font-size-14 cp-clickable-element" onClick={() => this.getDetail(value.id)}>
                                                         Lihat Detail Transaksi
                                                     </div>
                                                 </div>
@@ -240,8 +257,8 @@ export default class TransactionHistory extends React.Component{
 
                 {/* Modal Section */}
                 {
-                    this.state.detailTransaction?
-                        this.state.detailTransaction.map((value, index) => {
+                    this.state.detailData?
+                        this.state.detailData.map((value, index) => {
                             return(
                                 <Modal toggle={() => this.setState({showModal: false})} isOpen={this.state.showModal} className="width-800">
                                     <ModalBody>
@@ -256,7 +273,7 @@ export default class TransactionHistory extends React.Component{
                                                             Nomor Invoice
                                                         </div>
                                                         <div className="col-6 border-right cp-clickable-element text-warning">
-                                                            INV/{value.tahun}/{value.bulan.toUpperCase()}/{value.tanggal}/{this.state.idUser}/{value.idProduct}/{value.idTransaction}
+                                                            {/* INV/{value.tahun}/{value.bulan.toUpperCase()}/{value.tanggal}/{this.state.idUser}/{value.idProduct}/{value.idTransaction} */}
                                                         </div>
                                                         <div className="col-2 ml-3 cp-clickable-element text-warning">
                                                             Cetak
@@ -267,57 +284,62 @@ export default class TransactionHistory extends React.Component{
                                                         <div className="col-12">
                                                             Pesanan Selesai
                                                         </div>
-                                                        <div className="col-12 text-muted font-weight-normal cp-font-size-13 mt-3">
+                                                        {/* <div className="col-12 text-muted font-weight-normal cp-font-size-13 mt-3">
                                                             Brand
                                                         </div>
                                                         <div className="col-12 text-warning">
-                                                            {value.merk}
-                                                        </div>
+                                                            {value.productBrand}
+                                                        </div> */}
                                                         <div className="col-12 text-muted font-weight-normal cp-font-size-13 mt-3">
                                                             Tanggal Pembelian
                                                         </div>
                                                         <div className="col-12">
-                                                            {value.tanggal} {value.bulan} {value.tahun}, {value.jam} WIB
+                                                            {value.createdAt} WIB
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="col-12">
                                                     <hr style={{borderWidth: '1px'}}/>
                                                 </div>
-                                                <div className="col-12">
-                                                    <div className="row">
-                                                        <div className="col-7">
-                                                            <div className="row">
-                                                                <div className="col-12 font-weight-bold text-muted cp-font-size-12 my-2">
-                                                                    Daftar Produk
-                                                                </div>
-                                                                <div className="col-5">
-                                                                    <img src={value.gambar} alt=".." style={{width: '100%'}} />
-                                                                </div>
-                                                                <div className="col-7">
-                                                                    <div className="row">
-                                                                        <div className="col-12 cp-font-size-13 text-wrap">
-                                                                            {value.nama.toUpperCase()}
-                                                                        </div>
-                                                                        <div className="col-12 cp-font-size-12 font-weight-light text-muted">
-                                                                            {value.quantity} barang x Rp {value.harga.toLocaleString()}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-3 ml-3 border-left">
-                                                            <div className="row text-nowrap">
-                                                                <div className="col-12 font-weight-bold text-muted cp-font-size-12 my-2">
-                                                                    Harga Barang
-                                                                </div>
-                                                                <div className="col-12 cp-font-size-12 font-weight-bold text-danger">
-                                                                    {value.harga.toLocaleString()}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <table className="table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col" colSpan="2" className="font-weight-bold text-muted cp-font-size-12 my-2">
+                                                                Daftar Produk
+                                                            </th>
+                                                            <th scope="col" className="font-weight-bold text-muted cp-font-size-12 my-2">
+                                                                Harga Barang
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    {
+                                                        value.detail.map((value, index) => {
+                                                            return(
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row" className="w-25">
+                                                                            <img src={value.productImage} alt=".." className="w-100" />
+                                                                        </th>
+                                                                        <td style={{width: '35%'}}>
+                                                                            <div className="cp-font-size-13 text-wrap">
+                                                                                {value.productName.toUpperCase()}
+                                                                            </div>
+                                                                            <div className="cp-font-size-12 font-weight-light text-muted">
+                                                                                {value.productQuantity} barang x Rp {value.productPrice.toLocaleString()}
+                                                                            </div>
+                                                                        </td>
+                                                                        <td className="border-left">
+                                                                            <div className="cp-font-size-12 font-weight-bold text-danger">
+                                                                                Rp {(value.productQuantity * value.productPrice).toLocaleString()}
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            )
+                                                        })
+                                                    }
+                                                </table>
+                                                
                                                 <div className="col-12">
                                                     <hr style={{borderWidth: '1px'}}/>
                                                 </div>
@@ -329,7 +351,7 @@ export default class TransactionHistory extends React.Component{
                                                                     Pembayaran
                                                                 </div>
                                                                 <div className="col-12 text-muted font-weight-normal cp-font-size-11-5">
-                                                                    Total Harga {value.quantity} barang
+                                                                    Total Harga {this.state.quantityTotal} barang
                                                                 </div>
                                                                 <div className="col-12 text-muted font-weight-normal cp-font-size-11-5">
                                                                     Berat Barang
@@ -339,19 +361,19 @@ export default class TransactionHistory extends React.Component{
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-3 ml-3 border-left">
+                                                        <div className="col-3 ml-2 border-left">
                                                             <div className="row">
                                                                 <div className="col-12 font-weight-bold text-muted cp-font-size-12 my-2" style={{height: '18px'}}>
                                                                     
                                                                 </div>
                                                                 <div className="col-12 text-muted font-weight-bold cp-font-size-11-5">
-                                                                    {value.harga.toLocaleString()}
+                                                                    Rp {this.state.priceTotal.toLocaleString()}
                                                                 </div>
                                                                 <div className="col-12 text-muted font-weight-bold cp-font-size-11-5">
-                                                                    {value.berat} kg
+                                                                    {this.state.weightTotal} kg
                                                                 </div>
                                                                 <div className="col-12 font-weight-bold cp-font-size-11-5 text-danger">
-                                                                    {value.totalprice.toLocaleString()}
+                                                                    Rp {value.total.toLocaleString()}
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -8,6 +8,23 @@ import Axios from 'axios'
 import LinkProduct from '../Supports/Constants/linkProduct'
 import { Link } from 'react-router-dom'
 
+function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div className="carousel-control-next" role="button" onClick={onClick}>
+            <span className="carousel-control-next-icon fa" style={{ ...style, marginLeft: '220px' }}></span>
+        </div>
+    );
+}
+  
+function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div className="carousel-control-prev slick-arrow" role="button" onClick={onClick}>
+            <span className="carousel-control-prev-icon fa" style={{ ...style, marginRight: '220px' }}></span>
+        </div>
+    );
+}
 
 export default class FlashSale extends Component {
     state = {
@@ -54,7 +71,7 @@ export default class FlashSale extends Component {
                             </div>
                             <p className="card-text pb-5 pl-3 d-flex"><small className="text-muted">
                                 <FontAwesomeIcon icon={faWeightHanging} className="fa-lg mr-2 text-warning" style={{zIndex: '3'}} />
-                                Berat: {value.weight/1000} kg
+                                Berat: {value.weight/1000} kg 
                             </small></p>
                         </div>
                     </div>
@@ -74,6 +91,8 @@ export default class FlashSale extends Component {
             autoplaySpeed: 3000,
             pauseOnHover: true,
             initialSlide: 0,
+            nextArrow: <SampleNextArrow />,
+            prevArrow: <SamplePrevArrow />
         }
 
         if(this.state.dataSale === null){

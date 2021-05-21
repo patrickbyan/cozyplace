@@ -1,20 +1,43 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import Slider from "react-slick";
 import FlashSale from '../Component/FlashSale'
 import slogan from '../Supports/Assets/cozyplace-starts-here.png'
 
-export default class LandingPage extends Component {
+import { searchText } from '../Redux/Actions/CartAction'
+
+function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div className={className} style={{ ...style, display: "none"}} onClick={onClick} />
+    );
+}
+  
+function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div className={className} style={{ ...style, display: "none"}} onClick={onClick} />
+    );
+}
+
+class LandingPage extends React.Component {
     render() {
         const settings = {
-            dots: false,
+            dots: true,
             infinite: true,
             speed: 500,
             slidesToShow: 1,
             slidesToScroll: 1,
-            autoplay: true,
+            // autoplay: true,
             autoplaySpeed: 3000,
             pauseOnHover: true,
             initialSlide: 0,
+            nextArrow: <SampleNextArrow />,
+            prevArrow: <SamplePrevArrow />,
+            appendDots: dots => <ul>{dots}</ul>,
+              customPaging: i => (
+                <div className="slick-dots-custom"></div>
+              )
         };
         
         return (
@@ -23,7 +46,7 @@ export default class LandingPage extends Component {
                 <Slider {...settings}>
                     <div>
                         <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-02-1000x515_tcm61-178456.jpg" alt="..." className="w-100 jumbotron-landing-page" />
-                    </div>
+                    </div> 
                     <div>
                         <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-03-1000x515_tcm61-180034.jpg" alt="..." className="w-100 jumbotron-landing-page" />
                     </div>
@@ -57,3 +80,5 @@ export default class LandingPage extends Component {
         )
     }
 }
+
+export default LandingPage

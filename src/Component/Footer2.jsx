@@ -112,7 +112,7 @@ export default class Footer2 extends React.Component{
                     <span className="align-middle text-light"> | PURWADHIKA JCWM STUDENT</span>
                     <p className="text-light font-weight-lighter mt-n2">This website is for illustration purposes only. Profits are none taken. Credits to 
                     <span><a href="https://www.fabelio.com" target="_blank" rel="noreferrer" className="text-light font-weight-lighter pl-1 pb-2">
-                        fabelio.com.
+                        fabelio, jotun, ikea
                     </a></span></p>
                 </div>
             </div>

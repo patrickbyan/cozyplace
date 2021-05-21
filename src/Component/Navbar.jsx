@@ -8,6 +8,10 @@ import LinkAPI from '../Supports/Constants/linkAPI'
 import LinkCarts from '../Supports/Constants/LinkCarts'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { connect } from 'react-redux'
+import LinkProduct from '../Supports/Constants/linkProduct';
+
+import { searchText } from '../Redux/Actions/CartAction'
+import Swal from 'sweetalert2';
 
 class Navbar extends React.Component{
     state = {
@@ -49,8 +53,8 @@ class Navbar extends React.Component{
     }
 
     onLogin = () => {
-        let inputLogin = this.refs.inputLogin.value
-        let inputPassword = this.refs.inputPassword.value
+        let inputLogin = this.inputLogin.value
+        let inputPassword = this.inputPassword.value
         let inputLoginType = ''
 
         if(inputLogin && inputPassword){
@@ -105,6 +109,13 @@ class Navbar extends React.Component{
             console.log(err)
         })
     }
+
+    onSearch = () => {
+        let search = this.refs.search.value
+
+        this.props.searchText(search)
+    }    
+
     render(){
         return(
         <>
@@ -123,10 +134,12 @@ class Navbar extends React.Component{
                             <div className='d-flex justify-content-end align-items-center'> 
                                 <form className="form-inline d-none d-md-block">
                                     <div className="input-group align-items-center">
-                                        <input type="text" className="form-control" placeholder="Cari Produk" aria-label="Searchbox" aria-describedby="basic-addon1" style={{zIndex: '0'}}/>
+                                        <input type="text" ref="search" className="form-control" placeholder="Cari Produk" style={{zIndex: '0'}} onChange={this.onSearch} />
                                         <div className="input-group-prepend position-relative">
-                                            <span className="align-items-center" id="basic-addon1" style={{marginLeft: '-25px'}}>
-                                                <FontAwesomeIcon icon={faSearch} className="fa-lg cp-clickable-element" style={{zIndex: '3'}} />
+                                            <span className="align-items-center" style={{marginLeft: '-48px'}}>
+                                                <button type="submit" className="btn btn-transparent">
+                                                    <FontAwesomeIcon icon={faSearch} className="fa-lg" style={{zIndex: '3'}} />
+                                                </button>
                                             </span>
                                         </div>
                                     </div>
@@ -218,9 +231,11 @@ class Navbar extends React.Component{
                             <form className="form-inline">
                                 <div className="input-group align-items-center">
                                     <div className="input-group-prepend">
-                                        <input type="text" className="form-control" placeholder="Cari Produk" />
-                                        <span className="input-group-text align-items-center">
-                                            <FontAwesomeIcon icon={faSearch} className="fa-lg cp-clickable-element" />
+                                        <input type="text" ref={(e) => this.search = e} className="form-control" placeholder="Cari Produk" onChange={this.onSearch} />
+                                        <span className="align-items-center" id="basic-addon1" style={{marginLeft: '-48px'}}>
+                                            <button type="submit" className="btn btn-transparent">
+                                                <FontAwesomeIcon icon={faSearch} className="fa-lg" style={{zIndex: '3'}} />
+                                            </button>
                                         </span>
                                     </div>
                                 </div>
@@ -233,10 +248,10 @@ class Navbar extends React.Component{
                 <ModalHeader>Login Page</ModalHeader>
                     <ModalBody>
                         <div>
-                            <input type='text' ref="inputLogin" placeholder='Username / Nomor Handphone / Email' className='form form-control' />
+                            <input type='text' ref={(e) => this.inputLogin = e} placeholder='Username / Nomor Handphone / Email' className='form form-control' />
                         </div>
                         <div className="row container">
-                            <input type={this.state.showPassword === false? 'password' : 'text'} ref="inputPassword" placeholder='Password' className='form form-control my-3 col-10' />
+                            <input type={this.state.showPassword === false? 'password' : 'text'} ref={(e) => this.inputPassword = e} placeholder='Password' className='form form-control my-3 col-10' />
                             <input type='button' value={this.state.button === true? 'show' : 'hide'} className='btn btn-outline-secondary text-center my-3 col-2' onClick={() => this.setState({showPassword: !this.state.showPassword, button: !this.state.button})} />       
                         </div>
                         <div>
@@ -272,4 +287,8 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, '')(Navbar)
+const mapDispatchToProps = {
+    searchText
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

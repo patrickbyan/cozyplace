@@ -8,6 +8,8 @@ import checkUserLogin from '../Supports/Functions/checkUserLogin'
 
 // ACTION REDUX
 import { getDataCart } from '../Redux/Actions/CartAction'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowAltCircleLeft, faChevronCircleLeft, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 class DetailProduct extends React.Component{
     state = {
@@ -66,6 +68,9 @@ class DetailProduct extends React.Component{
         return(
             <div className="container-md">
                 <div className="row justify-content-center pt-5 pb-5 ">
+                    <div className="col-12 close text-warning mb-3 font-weight-normal" style={{fontSize: '18px'}} role="button" onClick={() => window.location = "/products"}>
+                        <FontAwesomeIcon icon={ faChevronLeft } className="mr-2" /> kembali ke daftar produk
+                    </div>
                     <div className="col-12 col-md-6 pt-1">
                         <div className="row justify-content-center">
                             <div className="col-12">
@@ -87,31 +92,51 @@ class DetailProduct extends React.Component{
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6 ">
-                        <div className="">
-                            <h4>{this.state.dataDetailProduct.name}</h4>
-                            <h6 className="font-weight-normal">Sold : ... Produk</h6>
-                            <h5>Rp. {(this.state.dataDetailProduct.price).toLocaleString()}</h5>
-                            <hr className="border-dark hr-style"/>
-                            <h6 className="font-weight-normal text-muted">Stock : {this.state.dataDetailProduct.stock} Item</h6>
-                            <h6 className="font-weight-normal text-muted">Weight : {(this.state.dataDetailProduct.weight)/1000} kg</h6>
-                            <hr className="border-dark hr-style"/>
-                            <h6>Description :</h6>
-                            <p className="text-wrap col-7 p-0 m-0 text-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel repudiandae, hic dolorum maiores dolor illum</p>
-                            <div className="width-300 row align-items-center ml-1 mt-4">
-                                {
-                                    this.state.isUserLogin?
-                                        <div className="cp-clickable-element" onClick={this.addToCart}>
-                                            <div className="width-250 col-10 btn btn-warning height-40">Add to Cart</div>
-                                        </div>
-                                    :
-                                        <div className="alert alert-warning" role="alert">
-                                            Login Terlebih Dahulu untuk Memasukan Produk ke Cart!
-                                        </div>
-
-                                }
+                    <div className="col-12 col-md-6">
+                        <div className="row">
+                            <div className="col-12 h4 pl-0 ml-0">
+                                {this.state.dataDetailProduct.name}
                             </div>
-                            
+                            <div className="col-12 font-weight-normal h6 pl-0 ml-0">
+                                Sold : ... Produk
+                            </div>
+                            <div className="col-12 h5 pl-0 ml-0">
+                                Rp. {(this.state.dataDetailProduct.price).toLocaleString()}
+                            </div>
+                            <div className="col-11 pl-0 ml-0">
+                                <hr className="border-dark w-100" />
+                            </div>
+                            <div className="w-100 my-2">
+                                <div className="col-12 font-weight-normal text-muted h6 pl-0 ml-0">
+                                    Stock : {this.state.dataDetailProduct.stock} Item
+                                </div>
+                                <div className="col-12 font-weight-normal text-muted h6 pl-0 ml-0">
+                                    Weight : {(this.state.dataDetailProduct.weight)/1000} kg
+                                </div>
+                            </div>
+                            <div className="col-11 pl-0 ml-0">
+                                <hr className="border-dark w-100" />
+                            </div>
+                            <div className="col-12 h6 pl-0 ml-0">
+                                Description :
+                            </div>
+                            <div className="col-11 text-wrap text-justify pl-0 ml-0">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel repudiandae, hic dolorum maiores dolor illum
+                            </div>
+                            <div className="w-100">
+
+                            </div>
+                            {
+                                this.state.isUserLogin?
+                                    <div className="col-11 pl-0 ml-0 h-100 mt-4">
+                                        <input type="button" className="btn btn-warning w-100 align-self-end" onClick={this.addToCart} value="Add to Cart" />
+                                    </div>
+                                :
+                                    <div className="alert alert-warning" role="alert">
+                                        Login Terlebih Dahulu untuk Memasukan Produk ke Cart!
+                                    </div>
+
+                            }
                         </div>
                     </div>
                 </div>
@@ -120,6 +145,8 @@ class DetailProduct extends React.Component{
     }
 }
 
-const mapDispatchToProps = {getDataCart}
+const mapDispatchToProps = {
+    getDataCart
+}
 
 export default connect('', mapDispatchToProps)(DetailProduct)

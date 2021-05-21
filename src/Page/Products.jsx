@@ -4,14 +4,21 @@ import axios from 'axios';
 import LinkProduct from '../Supports/Constants/linkProduct'
 import Slider from "react-slick"
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCompressAlt } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
 
-export default class Products extends React.Component{
+class Products extends React.Component{
     state = {
         FilteredProducts: null,
         dataProducts: null,
         showModal: false,
         allCategory: null,
         allBrand: null,
+        showAll: false,
+        type: null,
+        category: null,
+        brand: null
     }
 
     componentDidMount(){
@@ -20,9 +27,20 @@ export default class Products extends React.Component{
     }
 
     getDataProdutcs = () => {
+        axios.get(LinkProduct + '?_limit=4')
+        .then((res) => {
+            this.setState({dataProducts: res.data, FilteredProducts: res.data, showAll: false})
+        })
+
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+    getMinimzeProduct = () => {
         axios.get(LinkProduct)
         .then((res) => {
-            this.setState({dataProducts: res.data, FilteredProducts: res.data})
+            this.setState({dataProducts: res.data, FilteredProducts: res.data, showAll: true})
         })
 
         .catch((err) => {
@@ -77,7 +95,7 @@ export default class Products extends React.Component{
             }
         })
 
-        this.setState({dataProducts: filteredProcuts})
+        this.setState({dataProducts: filteredProcuts, category: category, brand: brand})
         this.setState({showModal: false})
 
     }
@@ -85,18 +103,17 @@ export default class Products extends React.Component{
     sortData = (event) => {
         let sort = event.target.innerText
         let sortProducts
-        console.log(sort)
 
         if(sort === 'Price: Low to High'){
-            sortProducts = this.state.FilteredProducts.sort((a, b) => {
+            sortProducts = this.state.dataProducts.sort((a, b) => {
                 return a.price - b.price
             })
         }else if(sort === "Price: High to Low"){
-            sortProducts = this.state.FilteredProducts.sort((a, b) => {
+            sortProducts = this.state.dataProducts.sort((a, b) => {
                 return b.price - a.price
             })
         }else{
-            sortProducts = this.state.FilteredProducts.sort((a, b) => {
+            sortProducts = this.state.dataProducts.sort((a, b) => {
                 return a.price - b.price
             })
         }
@@ -104,6 +121,15 @@ export default class Products extends React.Component{
         this.setState({dataProducts: sortProducts})
     }
 
+    onSortCategory = (type) => {
+        axios.get(`http://localhost:2000/products?category=${type}`)
+        .then((res) => {
+            this.setState({dataProducts: res.data, type: type})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 
     render(){
         const cardImg = {
@@ -133,26 +159,26 @@ export default class Products extends React.Component{
                             Berdasarkan Kategori Produk
                         </h2>
                         <div className="container d-flex py-2">
-                            <div>
-                                <img src="https://cdn-m2.fabelio.com/catalog/category/All_Set_Ruang_Tamu2.jpg?auto=format&w=160&ixlib=react-9.0.3" className="half-radius mr-3 height-150 width-150 cp-clickable-element" alt="..." />
+                            <div role="button" onClick={() => this.onSortCategory("Sofa")}>
+                                <img src="https://cdn-m2.fabelio.com/catalog/category/All_Set_Ruang_Tamu2.jpg?auto=format&w=160&ixlib=react-9.0.3" className="half-radius mr-3 height-150 width-150" alt="..." />
                                 <h5 className="font-weight-bold text-center width-150">
                                     Sofa
                                 </h5>
                             </div>
-                            <div>
-                                <img src="https://cdn-m2.fabelio.com/catalog/category/Sofa_2_1.jpg?auto=format&w=160&ixlib=react-9.0.4" className="half-radius mr-3 height-150 width-150 cp-clickable-element" alt="..." />
+                            <div role="button" onClick={() => this.onSortCategory("Meja")}>
+                                <img src="https://cdn-m2.fabelio.com/catalog/category/Sofa_2_1.jpg?auto=format&w=160&ixlib=react-9.0.4" className="half-radius mr-3 height-150 width-150" alt="..." />
                                 <h5 className="font-weight-bold text-center width-150">
                                     Meja
                                 </h5>
                             </div>
-                            <div>
-                                <img src="https://cdn-m2.fabelio.com/catalog/category/Set_Ruang_Tamu.jpg?auto=format&w=160&ixlib=react-9.0.3" className="half-radius mr-3 height-150 width-150 cp-clickable-element" alt="..." />
+                            <div role="button" onClick={() => this.onSortCategory("Lemari")}>
+                                <img src="https://cdn-m2.fabelio.com/catalog/category/Set_Ruang_Tamu.jpg?auto=format&w=160&ixlib=react-9.0.3" className="half-radius mr-3 height-150 width-150" alt="..." />
                                 <h5 className="font-weight-bold text-center width-150">
                                     Lemari
                                 </h5>
                             </div>
-                            <div>
-                                <img src="https://cdn-m2.fabelio.com/catalog/category/Set_Ruang_Tamu_1_.jpg?auto=format&w=160&ixlib=react-9.0.3" className="half-radius mr-3 height-150 width-150 cp-clickable-element" alt="..." />
+                            <div role="button" onClick={() => this.onSortCategory("Lampu Lantai")}>
+                                <img src="https://cdn-m2.fabelio.com/catalog/category/Set_Ruang_Tamu_1_.jpg?auto=format&w=160&ixlib=react-9.0.3" className="half-radius mr-3 height-150 width-150" alt="..." />
                                 <h5 className="font-weight-bold text-center width-150">
                                     Lampu Lantai
                                 </h5>
@@ -163,8 +189,8 @@ export default class Products extends React.Component{
 
                 {/* FILTER DAN SORT */}
                 <div className="container">
-                    <div className="row my-5">
-                        <div className="col-12 d-flex">
+                    <div className="row my-5 align-items-center">
+                        <div className="col-10 d-flex">
                             <button type="button" className="btn btn-outline-secondary" onClick={() => this.setState({showModal: true})}>
                                 Filter
                             </button>
@@ -180,7 +206,28 @@ export default class Products extends React.Component{
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </div>
+                        {
+                            this.state.showAll?
+                                <div className="col-2 text-right">
+                                    <button type="button" className="close" onClick={() => this.getDataProdutcs()} >
+                                        <span aria-hidden="true">
+                                            <FontAwesomeIcon icon={ faCompressAlt } />
+                                        </span>
+                                    </button>
+                                </div>
+                            :
+                                null
+                                
+                        }
                     </div>
+                    {
+                        this.props.carts.searchResult?
+                            <div className="col-12 p-0 m-0 text-muted">
+                                Pencarian data sebanyak {this.props.carts.searchResult.length} untuk "{this.props.carts.searchText}".
+                            </div>
+                        :
+                            null
+                    }
                     <hr />
                     <div className="font-weight-normal h5 mb-4 mt-2" >
                         Products:
@@ -191,10 +238,9 @@ export default class Products extends React.Component{
                 <div className="container">
                     <div className="row row-cols-1 row-cols-md-4">
                         {
-                            this.state.dataProducts?
-                                this.state.dataProducts.map((value, index) => {
+                            this.props.carts.searchResult?
+                                this.props.carts.searchResult.map((value, index) => {
                                     return(
-                                        <>
                                         <Link to={`/detailProduct/${value.id}`} className="text-decoration-none cp-link">
                                             <div className="col mb-4" key={index}>
                                                 <div className="card full-radius height-300">
@@ -240,7 +286,7 @@ export default class Products extends React.Component{
                                                                     Rp. {(value.price).toLocaleString()}
                                                                 </p>
                                                         }
-                                                       
+                                                    
                                                         </div>
                                                     </div>
                                                     <div className="card-footer bg-white border border-white">
@@ -251,17 +297,154 @@ export default class Products extends React.Component{
                                                 </div>
                                             </div>
                                         </Link>
-                                        </>
                                     )
                                 })
                             :
-                                null
+                                this.state.showAll?
+                                    this.state.dataProducts?
+                                        this.state.dataProducts.map((value, index) => {
+                                            return(
+                                                <>
+                                                <Link to={`/detailProduct/${value.id}`} className="text-decoration-none cp-link">
+                                                    <div className="col mb-4" key={index}>
+                                                        <div className="card full-radius height-300">
+                                                            <Slider {...cardImg}>
+                                                                <img src={value.image1} className="card-img-top p-3" alt="..."/>
+                                                                <img src={value.image2} className="card-img-top p-3" alt="..."/>
+                                                                {
+                                                                    value.image3?
+                                                                        <img src={value.image3} className="card-img-top p-3" alt="..."/>
+                                                                    :
+                                                                        null
+                                                                }
+                                                            </Slider>
+                                                                {
+                                                                    value.diskon?
+                                                                        <div className="card-img-overlay width-40">
+                                                                            <div className="width-40 bg-light text-center">
+                                                                                {value.diskon}%
+                                                                            </div>
+                                                                        </div>
+                                                                    :
+                                                                        null
+                                                                }
+                                                            <div className="card-body">
+                                                                <h6 className="card-title height-50">{value.name}</h6>
+                                                                <div className="card-text">
+                                                                {
+                                                                    value.diskon?
+                                                                    <>
+                                                                        <div>
+                                                                            <>
+                                                                            <span className="font-weight-bold">
+                                                                                Rp. {((value.price - (value.price * (value.diskon / 100))).toLocaleString())}
+                                                                            </span>
+                                                                            <span className="text-muted pl-1 font-weight-lighter">
+                                                                                <del>{(value.price).toLocaleString()}</del>
+                                                                            </span>
+                                                                            </>
+                                                                        </div>
+                                                                    </>
+                                                                    :
+                                                                        <p className="font-weight-bold">
+                                                                            Rp. {(value.price).toLocaleString()}
+                                                                        </p>
+                                                                }
+                                                            
+                                                                </div>
+                                                            </div>
+                                                            <div className="card-footer bg-white border border-white">
+                                                                <small className="text-muted">
+                                                                    {value.category} {value.brand} | Stock : {value.stock}
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                                </>
+                                            )
+                                        })
+                                    :
+                                        null
+                                :
+                                    this.state.dataProducts?
+                                        this.state.dataProducts.map((value, index) => {
+                                            return(
+                                                <>
+                                                <Link to={`/detailProduct/${value.id}`} className="text-decoration-none cp-link">
+                                                    <div className="col mb-4" key={index}>
+                                                        <div className="card full-radius height-300">
+                                                            <Slider {...cardImg}>
+                                                                <img src={value.image1} className="card-img-top p-3" alt="..."/>
+                                                                <img src={value.image2} className="card-img-top p-3" alt="..."/>
+                                                                {
+                                                                    value.image3?
+                                                                        <img src={value.image3} className="card-img-top p-3" alt="..."/>
+                                                                    :
+                                                                        null
+                                                                }
+                                                            </Slider>
+                                                                {
+                                                                    value.diskon?
+                                                                        <div className="card-img-overlay width-40">
+                                                                            <div className="width-40 bg-light text-center">
+                                                                                {value.diskon}%
+                                                                            </div>
+                                                                        </div>
+                                                                    :
+                                                                        null
+                                                                }
+                                                            <div className="card-body">
+                                                                <h6 className="card-title height-50">{value.name}</h6>
+                                                                <div className="card-text">
+                                                                {
+                                                                    value.diskon?
+                                                                    <>
+                                                                        <div>
+                                                                            <>
+                                                                            <span className="font-weight-bold">
+                                                                                Rp. {((value.price - (value.price * (value.diskon / 100))).toLocaleString())}
+                                                                            </span>
+                                                                            <span className="text-muted pl-1 font-weight-lighter">
+                                                                                <del>{(value.price).toLocaleString()}</del>
+                                                                            </span>
+                                                                            </>
+                                                                        </div>
+                                                                    </>
+                                                                    :
+                                                                        <p className="font-weight-bold">
+                                                                            Rp. {(value.price).toLocaleString()}
+                                                                        </p>
+                                                                }
+                                                            
+                                                                </div>
+                                                            </div>
+                                                            <div className="card-footer bg-white border border-white">
+                                                                <small className="text-muted">
+                                                                    {value.category} {value.brand} | Stock : {value.stock}
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                                </>
+                                            )
+                                        })
+                                    :
+                                        null
                         }
                     </div>
                     <div className="mb-5">
-                        <button type="button" className="btn btn-warning" disabled>
-                            Tampilkan Seluruhnya
-                        </button>
+                        {
+                            this.state.showAll?
+                                <button type="button" className="btn btn-warning" onClick={() => this.getDataProdutcs()}>
+                                    Minimize
+                                </button>
+                            :
+                                <button type="button" className="btn btn-warning" onClick={() => this.getMinimzeProduct()}>
+                                    Tampilkan Seluruhnya
+                                </button>
+                        }
                     </div>
                 </div>
 
@@ -320,3 +503,11 @@ export default class Products extends React.Component{
         )
     }
 }
+
+const mapDispatchToProps = (state) => {
+    return{
+        carts: state.carts
+    }
+}
+
+export default connect(mapDispatchToProps, '')(Products)

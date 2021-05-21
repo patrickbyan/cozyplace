@@ -421,6 +421,15 @@
     text-decoration: none;
 }
 
+.cp-hover-white{
+    color: inherit
+}
+
+.cp-hover-white:hover{
+    color: white;
+    text-decoration: none;
+}
+
 /* clickable element */
 .cp-clickable-element{
     cursor: pointer;
@@ -442,5 +451,84 @@
 
 .half-radius{
     border-radius: 15px
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    height: 100px;
+    width: 100px;
+    outline: black;
+    background-size: 100%, 100%;
+    background-image: none;
+    margin-top: 50px;
+}
+
+.carousel-control-next-icon::after
+{
+    font-family: Font Awesome 5 Brands; 
+    font-weight: 900; 
+    content: "\f105"; 
+    color: #ffc107;
+    font-size: 55px;
+}
+
+.carousel-control-prev-icon::after {
+    font-family: Font Awesome 5 Brands; 
+    font-weight: 900; 
+    content: "\f104"; 
+    color: #ffc107;
+    font-size: 55px;
+}
+/* Dots */
+.slick-dots {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 15;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 0;
+    margin-top: 33%;
+    list-style: none;
+}
+
+.slick-dots li {
+    box-sizing: content-box;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: .5;
+    transition: opacity 0.3s ease;
+}
+  
+/* Custom Slick Dots */
+
+.slick-dots-custom {
+    height: 8px;
+    width: 40px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.slick-dots li {
+    width: 40px;
+}
+
+.slick-dots .slick-active {
+    opacity: 1;
 }
 
