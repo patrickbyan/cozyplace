@@ -1,3 +1,3 @@
-const LinkCarts = 'http://localhost:2000/carts'
+const LinkCarts = 'https://cozy-place-api.herokuapp.com/carts'
 
 export default LinkCarts

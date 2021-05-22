@@ -1,3 +1,3 @@
-const LinkProduct = 'http://localhost:2000/products'
+const LinkProduct = 'https://cozy-place-api.herokuapp.com/products'
 
 export default LinkProduct
