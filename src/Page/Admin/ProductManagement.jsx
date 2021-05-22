@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Modal, ModalBody } from 'reactstrap'
 import Swal from 'sweetalert2'
 
+const api = "https://cozy-place-api.herokuapp.com"
 class ProductManagement extends React.Component{
     state = {
         data: null,
@@ -21,7 +22,7 @@ class ProductManagement extends React.Component{
     }
 
     getData = () => {
-        axios.get('http://localhost:5000/products')
+        axios.get(api + '/products')
         .then((res) => {
             this.setState({data: res.data.data})
         })
@@ -33,7 +34,7 @@ class ProductManagement extends React.Component{
     }
 
     getDataCategory = () => {
-        axios.get('http://localhost:5000/category')
+        axios.get(api + '/category')
         .then((res) => {
             this.setState({category: res.data.data})
         })
@@ -56,7 +57,7 @@ class ProductManagement extends React.Component{
         })
         .then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/product/${id}`)
+                axios.delete(api + `/product/` + id)
                 .then((res) => {
                     Swal.fire(
                         'Deleted!',
@@ -110,7 +111,7 @@ class ProductManagement extends React.Component{
         })
         .then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/product/${idSelected}`, dataToSend)
+                axios.patch(api + '/product/' + idSelected, dataToSend)
                 .then((res) =>{
                     Swal.fire(
                         'Success!',
@@ -158,7 +159,7 @@ class ProductManagement extends React.Component{
         })
         .then((result) => {
             if(result.isConfirmed){
-                axios.post('http://localhost:5000/post-data-product', dataToSend)
+                axios.post(api + '/post-data-product', dataToSend)
                 .then((res) => {
                     Swal.fire('Success!', 'Post Data Success!', 'success')
                     .then((result) => {
