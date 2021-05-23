@@ -1,3 +1,3 @@
-const LinkAPI = 'https://cozy-place-api.herokuapp.com/users'
+const LinkAPI = 'http://8432fbab238e.ngrok.io'
 
 export default LinkAPI

@@ -6,7 +6,8 @@ export default class Signup extends React.Component{
 
     state = {
       usernameAvailable: null,  
-      error: null,
+      errorUsername: null,
+      errorPassword: null,
       passwordMatch: null,
       inputUsername: null,
       inputPassword: null
@@ -20,7 +21,7 @@ export default class Signup extends React.Component{
     componentWillUnmount(){
       let id = this.props.location.pathname.split('/')[2]
 
-      Axios.delete(LinkAPI + `/${id}`)
+      Axios.delete(LinkAPI + `/users/${id}`)
       .then((res) => {
         console.log(res)
       })
@@ -32,12 +33,12 @@ export default class Signup extends React.Component{
     usernameValidation = (event) => {
         let inputUsername = event.target.value
 
-        Axios.get(LinkAPI + '?username=' + inputUsername)
+        Axios.get(LinkAPI + '/users?username=' + inputUsername)
         .then((res) => {
           if(res.data.length === 0){
-            this.setState({usernameAvailable: true, error: null, inputUsername: inputUsername})
+            this.setState({usernameAvailable: true, errorUsername: null, inputUsername: inputUsername})
           }else{
-            this.setState({error: 'Username Telah Terpakai'})
+            this.setState({errorUsername: 'Username Telah Terpakai'})
           }
         })
 
@@ -51,23 +52,26 @@ export default class Signup extends React.Component{
       let inputConfirmPassword = this.refs.inputConfirmPassword.value
 
       if(inputPassword === inputConfirmPassword){
-        this.setState({passwordMatch: true, error: null, inputPassword: inputPassword})
+        this.setState({passwordMatch: true, errorPassword: null, inputPassword: inputPassword})
       }else{
-        this.setState({error: 'Password Tidak Sesuai'})
+        this.setState({errorPassword: 'Password Tidak Sesuai'})
       }
     }
 
     submitRegister = () => {
       let id = this.props.location.pathname.split('/')[2]
 
+      if(this.state.errorUsername) return alert(this.state.errorUsername)
+
+      if(this.state.errorPassword) return alert(this.state.errorPassword)
+
       let dataToSend = {
         username: this.state.inputUsername,
         password: this.state.inputPassword
       }
 
-      Axios.patch(LinkAPI + `/${id}`, dataToSend)
+      Axios.patch(LinkAPI + `/users/${id}`, dataToSend)
       .then((res) => {
-        console.log(res)
         localStorage.setItem('id', res.data.id)
         window.location = '/'
       })
@@ -90,12 +94,22 @@ export default class Signup extends React.Component{
                         <input type="password" ref="inputConfirmPassword" placeholder="confirm password" className="form form-control" onChange={this.passwordValidation}/>
                         <p className="text-warning cp-font-size-14">
                             {
-                              this.state.error? // ada?
-                                this.state.error // jika ada, tampilkan
+                              this.state.errorUsername? // ada?
+                                this.state.errorUsername // jika ada, tampilkan
                               :
                                 null // else, null/tampil
                             }
+                            
                         </p>
+                        <p className="text-warning cp-font-size-14">
+                            {
+                              this.state.errorPassword?
+                                this.state.errorPassword
+                              :
+                                null
+                            }
+                        </p>
+                        
                         <input type='button' value='submit' className="btn btn-warning w-100 mt-3" onClick={this.submitRegister} />
                     </div>
                 </div>

@@ -1,18 +1,16 @@
 import axios from 'axios'
-import LinkCart from '/Important-Document/Purwadhika/Class/Front-End/Patrick_Project_Ecommerce/cozyplace_patrick/src/Supports/Constants/LinkCarts'
 import Swal2 from 'sweetalert2'
-import LinkProduct from '../../Supports/Constants/linkProduct'
-import { Redirect } from 'react-router'
+import LinkAPI from '../../Supports/Constants/linkAPI'
 
 export const getDataCart = (idProduct, idUser, quantity) => {
     return(dispatch) => {
-        axios.get(LinkCart + `?idProduct=${idProduct}`)
+        axios.get(LinkAPI + `/carts?idProduct=${idProduct}`)
         .then((res) => {
             if(res.data.length === 0){
-                axios.post(LinkCart, {idProduct: idProduct, idUser: idUser, quantity: quantity})
+                axios.post(LinkAPI + '/carts', {idProduct: idProduct, idUser: idUser, quantity: quantity})
                 .then((res) => {
                     console.log(res.data)
-                    axios.get(LinkCart + `?idUser=${idUser}`)
+                    axios.get(LinkAPI + `/carts?idUser=${idUser}`)
                     .then((res) => {
                         Array.prototype.sum = function(){
                             var sumQtyCarts = 0
@@ -43,10 +41,9 @@ export const getDataCart = (idProduct, idUser, quantity) => {
                 let quantityOnDB = res.data[0].quantity
                 let idCart = res.data[0].id
 
-                axios.patch(LinkCart + `/${idCart}`, {quantity: quantityOnDB + 1})
+                axios.patch(LinkAPI + `/carts/${idCart}`, {quantity: quantityOnDB + 1})
                 .then((res) => {
-                    console.log(res.data)
-                    axios.get(LinkCart + `?idUser=${idUser}`)
+                    axios.get(LinkAPI + `/carts?idUser=${idUser}`)
                     .then((res) => {
                         Array.prototype.sum = function(){
                             var sumQtyCarts = 0
@@ -89,7 +86,7 @@ export const searchText = (search) => {
             payload: search
         })
 
-        axios.get(LinkProduct + '?name_like=' + search)
+        axios.get(LinkAPI + '/products?name_like=' + search)
         .then((res) => {
             if(search.length === 0){
                 dispatch({

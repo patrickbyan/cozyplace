@@ -1,12 +1,12 @@
 import React from 'react';
 import { DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, UncontrolledDropdown } from 'reactstrap';
 import axios from 'axios';
-import LinkProduct from '../Supports/Constants/linkProduct'
 import Slider from "react-slick"
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompressAlt } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
+import LinkAPI from '../Supports/Constants/linkAPI';
 
 class Products extends React.Component{
     state = {
@@ -27,7 +27,7 @@ class Products extends React.Component{
     }
 
     getDataProdutcs = () => {
-        axios.get(LinkProduct + '?_limit=4')
+        axios.get(LinkAPI + '/products?_limit=4')
         .then((res) => {
             this.setState({dataProducts: res.data, FilteredProducts: res.data, showAll: false})
         })
@@ -38,7 +38,7 @@ class Products extends React.Component{
     }
 
     getMinimzeProduct = () => {
-        axios.get(LinkProduct)
+        axios.get(LinkAPI + '/products')
         .then((res) => {
             this.setState({dataProducts: res.data, FilteredProducts: res.data, showAll: true})
         })
@@ -49,7 +49,7 @@ class Products extends React.Component{
     }
 
     getDataCatAndBrand = () => {
-        axios.get(LinkProduct)
+        axios.get(LinkAPI + '/products')
         .then((res) => {
             // Ambil Category
             let arrCategory = []
@@ -122,7 +122,7 @@ class Products extends React.Component{
     }
 
     onSortCategory = (type) => {
-        axios.get(`http://localhost:2000/products?category=${type}`)
+        axios.get(LinkAPI + `/products?category=${type}`)
         .then((res) => {
             this.setState({dataProducts: res.data, type: type})
         })

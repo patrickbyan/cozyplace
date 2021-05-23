@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, UncontrolledDropdown } from 'reactstrap';
 import React from 'react'
 
-import LinkTransactions from '../../Supports/Constants/LinkTransaction';
 import axios from 'axios';
+import LinkAPI from '../../Supports/Constants/linkAPI';
 
 export default class TransactionHistory extends React.Component{
 
@@ -28,10 +28,9 @@ export default class TransactionHistory extends React.Component{
     }
 
     getData = () => {
-        let LinkTransaction = LinkTransactions
         let idUser = this.state.idUser
 
-        axios.get(LinkTransaction + `?idUser=${idUser}&status=Paid`)
+        axios.get(LinkAPI + `/transactions?idUser=${idUser}&status=Paid`)
         .then((res) => {
             this.setState({data: res.data})
         })
@@ -42,10 +41,9 @@ export default class TransactionHistory extends React.Component{
     }
 
     getDetail = (idSelected) => {
-        let LinkTransaction = LinkTransactions
         let idTransaction = idSelected
 
-        axios.get(LinkTransaction + `/${idTransaction}`)
+        axios.get(LinkAPI + `/transactions/${idTransaction}`)
         .then((res) => {
             this.setState({detailData: [res.data], showModal: true})
 
@@ -131,7 +129,7 @@ export default class TransactionHistory extends React.Component{
                         </div>
                         <div className="col-4">
                             <div className="dropdown">
-                                <UncontrolledDropdown className="ml-3">
+                                <UncontrolledDropdown className="ml-3" disabled>
                                     <DropdownToggle caret color="outline-secondary text-left" style={{width: '100%'}}>
                                         Sort
                                     </DropdownToggle>

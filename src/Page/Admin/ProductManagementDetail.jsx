@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import Swal from 'sweetalert2'
+import LinkAPISQL from '../../Supports/Constants/linkAPISQL'
 
 class ProductManagementDetail extends React.Component{
     state = {
@@ -14,7 +15,7 @@ class ProductManagementDetail extends React.Component{
     getDetailProduct = () => {
         let idProduct = this.props.location.pathname.split('/')[2]
 
-        axios.get(`http://localhost:5000/product/${idProduct}`)
+        axios.get(`${LinkAPISQL}/product/${idProduct}`)
         .then((res) => {
             this.setState({data: res.data.data})
         })

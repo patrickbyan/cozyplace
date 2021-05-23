@@ -5,8 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWeightHanging } from '@fortawesome/free-solid-svg-icons';
 import Axios from 'axios'
-import LinkProduct from '../Supports/Constants/linkProduct'
 import { Link } from 'react-router-dom'
+import LinkAPI from "../Supports/Constants/linkAPI";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -36,7 +36,7 @@ export default class FlashSale extends Component {
     }
 
     onGetData = () => {
-        Axios.get(LinkProduct)
+        Axios.get(LinkAPI + '/products')
         .then((res) => {
             this.setState({dataSale: res.data})
         })

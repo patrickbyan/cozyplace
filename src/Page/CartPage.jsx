@@ -1,13 +1,11 @@
 import react from 'react'
 import axios from 'axios'
-import LinkCarts from '../Supports/Constants/LinkCarts'
-import LinkProduct from '../Supports/Constants/linkProduct'
-import LinkTransaction from '../Supports/Constants/LinkTransaction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom'
 import { faMinusCircle, faPlusCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 import swal from 'sweetalert'
+import LinkAPI from '../Supports/Constants/linkAPI';
 
 export default class CartPage extends react.Component{
     state = {
@@ -24,7 +22,7 @@ export default class CartPage extends react.Component{
     getDataCarts = () => {
         let id = localStorage.getItem('id')
 
-        axios.get(LinkCarts + `?idUser=${id}`)
+        axios.get(LinkAPI + `/carts?idUser=${id}`)
         .then((res) => {
             let linkURLToGetDataProduct = ''
 
@@ -38,7 +36,7 @@ export default class CartPage extends react.Component{
 
             this.setState({dataCarts: res.data})
 
-            axios.get(LinkProduct + `?${linkURLToGetDataProduct}`)
+            axios.get(LinkAPI + `/products?${linkURLToGetDataProduct}`)
             .then((res) => {
                 this.setState({dataProducts: res.data})
                 this.getOrderSummary()
@@ -74,7 +72,7 @@ export default class CartPage extends react.Component{
             quantityTerbaru = quantitySebelumnya -1
         }
 
-        axios.patch(LinkCarts + `/${idCart}`, {quantity: quantityTerbaru})
+        axios.patch(LinkAPI + `/carts/${idCart}`, {quantity: quantityTerbaru})
         .then((res) => {
             if(res.status === 200){
                 this.getDataCarts()
@@ -94,7 +92,7 @@ export default class CartPage extends react.Component{
         })
         .then((willDelete) => {
             if(willDelete){
-                axios.delete(LinkCarts + `/${idCart}`)
+                axios.delete(LinkAPI + `/carts/${idCart}`)
                 .then((res) => {
                     swal({
                         title: "Product delete success",
@@ -154,7 +152,7 @@ export default class CartPage extends react.Component{
         }
         
         // create transaction 
-        axios.post(LinkTransaction, dataToSend)
+        axios.post(LinkAPI + '/transactions', dataToSend)
         .then((res) => {
             // Setelah berhasil ngecreate, update stock
 
@@ -164,10 +162,10 @@ export default class CartPage extends react.Component{
                 let stock = this.state.dataProducts[index].stock
                 let stockBaru = stock - value.quantity
 
-                axios.patch(LinkProduct + `/${value.idProduct}`, {stock: stockBaru})
+                axios.patch(LinkAPI + `/products/${value.idProduct}`, {stock: stockBaru})
                 .then((res) => {
                     // Setelah berhasil, delete data carts
-                    axios.delete(LinkCarts + `/${value.id}`)
+                    axios.delete(LinkAPI + `/carts/${value.id}`)
                     .then((res) => {
                         this.getDataCarts()
                         window.location = '/checkout/' + idTransaction

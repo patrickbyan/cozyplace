@@ -5,10 +5,8 @@ import logo from '../Supports/Assets/logo.png'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import LinkAPI from '../Supports/Constants/linkAPI'
-import LinkCarts from '../Supports/Constants/LinkCarts'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { connect } from 'react-redux'
-import LinkProduct from '../Supports/Constants/linkProduct';
 
 import { searchText } from '../Redux/Actions/CartAction'
 import Swal from 'sweetalert2';
@@ -33,7 +31,7 @@ class Navbar extends React.Component{
         let id = this.state.id
 
         if(id){
-            axios.get(LinkAPI + `/${id}`)
+            axios.get(LinkAPI + `/users/${id}`)
             .then((res) => {
                 this.setState({username: res.data.username})
             })
@@ -70,7 +68,7 @@ class Navbar extends React.Component{
                 }
             }
 
-        axios.get(LinkAPI + `?${inputLoginType}=` + inputLogin + '&password=' + inputPassword)
+        axios.get(LinkAPI + `/users?${inputLoginType}=` + inputLogin + '&password=' + inputPassword)
         .then((res) => {
           if(res.data.length === 1){
               this.setState({username: res.data[0].username, error: null, showModal: false})
@@ -93,7 +91,7 @@ class Navbar extends React.Component{
     getCurrentTotalCarts = () => {
         var id = this.state.id
 
-        axios.get(LinkCarts + `?idUser=${id}`)
+        axios.get(LinkAPI + `/carts?idUser=${id}`)
         .then((res) => {
             Array.prototype.sum = function(){
                 var sumQtyCarts = 0
@@ -247,12 +245,20 @@ class Navbar extends React.Component{
             <Modal toggle={() => this.setState({showModal: false})} isOpen={this.state.showModal} className="width-400">
                 <ModalHeader>Login Page</ModalHeader>
                     <ModalBody>
-                        <div>
-                            <input type='text' ref={(e) => this.inputLogin = e} placeholder='Username / Nomor Handphone / Email' className='form form-control' />
+                    <form>
+                        <div className="form-group">
+                            {/* <label for="email">Email / Username</label> */}
+                            <input type='text' className='form-control' ref={(e) => this.inputLogin = e} placeholder='Username / Nomor Handphone / Email' />
+                            <small id="emailHelp" className="form-text text-muted">We'll never share your email or username with anyone else.</small>
                         </div>
-                        <div className="row container">
-                            <input type={this.state.showPassword === false? 'password' : 'text'} ref={(e) => this.inputPassword = e} placeholder='Password' className='form form-control my-3 col-10' />
-                            <input type='button' value={this.state.button === true? 'show' : 'hide'} className='btn btn-outline-secondary text-center my-3 col-2' onClick={() => this.setState({showPassword: !this.state.showPassword, button: !this.state.button})} />       
+                        <div className="form-row">
+                            <div className="col-9">
+                                {/* <label for="password">Password</label> */}
+                                <input className='form-control' type={this.state.showPassword === false? 'password' : 'text'} ref={(e) => this.inputPassword = e} placeholder='Password' />
+                            </div>
+                            <div className="col-3">
+                                <input type='button' className='btn btn-outline-warning form-control' value={this.state.button === true? 'show' : 'hide'} onClick={() => this.setState({showPassword: !this.state.showPassword, button: !this.state.button})} />    
+                            </div>
                         </div>
                         <div>
                             <p className="text-warning cp-font-size-14">
@@ -264,15 +270,20 @@ class Navbar extends React.Component{
                                 }
                             </p>
                         </div>
-                        <div className="d-flex mt-3">
-                            <input type='button' value='Login' className='btn btn-warning' onClick={this.onLogin} />
-                            <input type='button' value='Cancel' className='btn btn-danger ml-2' onClick={() => this.setState({showModal: false})} />
+                        <div className="form-row">
+                            <div className="form-group col-auto">
+                                <input type='button' value='Login' className='btn btn-warning' onClick={this.onLogin} />
+                            </div>
+                            <div className="form-group col-auto">
+                                <input type='button' value='Cancel' className='btn btn-danger' onClick={() => this.setState({showModal: false})} />
+                            </div>
                         </div>
-                        <div className="mt-5 text-center">
+                        <div className="mt-3 text-center">
                             <p>
                                 Don't have account? <Link to="/Register" onClick={() => this.setState({showModal: false})}><span className="font-weight-bold">Register here!</span></Link>
                             </p>
                         </div>
+                    </form>
                     </ModalBody>
                     <ModalFooter></ModalFooter>
             </Modal>

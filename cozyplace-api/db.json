@@ -4,7 +4,7 @@
       "phone": "081296917987",
       "email": "patrickbyann@gmail.com",
       "username": "patrickbyan",
-      "password": " ",
+      "password": "clownmage",
       "roles": "user",
       "id": 1
     }
@@ -15,7 +15,7 @@
       "name": "Sofa Ruang Tamu",
       "brand": "Olympic",
       "category": "Sofa",
-      "stock": 12,
+      "stock": 11,
       "price": 2500000,
       "diskon": 0,
       "weight": 3000,
@@ -272,137 +272,5 @@
     }
   ],
   "carts": [],
-  "transactions": [
-    {
-      "idUser": "1",
-      "status": "Paid",
-      "createdAt": "11-Mar-2021 18:25:14",
-      "total": 909000,
-      "detail": [
-        {
-          "productName": "Louisville Lampu Lantai Minimalis Yellow Indoor",
-          "productPrice": 909000,
-          "productDiscount": 30,
-          "productQuantity": 1,
-          "productImage": "https://cdn-m2.fabelio.com/catalog/product/l/a/lampul_louisville_b_21_hires_1.jpg?auto=format&w=1678&ixlib=react-9.0.3",
-          "productWeight": 3,
-          "productCategory": "Lampu Lantai",
-          "productBrand": "Louisville",
-          "productID": 19
-        }
-      ],
-      "id": 1
-    },
-    {
-      "idUser": "1",
-      "status": "Paid",
-      "createdAt": "10-Apr-2021 16:57:30",
-      "total": 909000,
-      "detail": [
-        {
-          "productName": "Louisville Lampu Lantai Minimalis Yellow Indoor",
-          "productPrice": 909000,
-          "productDiscount": 30,
-          "productQuantity": 1,
-          "productImage": "https://cdn-m2.fabelio.com/catalog/product/l/a/lampul_louisville_b_21_hires_1.jpg?auto=format&w=1678&ixlib=react-9.0.3",
-          "productWeight": 3,
-          "productCategory": "Lampu Lantai",
-          "productBrand": "Louisville",
-          "productID": 19
-        }
-      ],
-      "id": 2
-    },
-    {
-      "idUser": "1",
-      "status": "Unpaid",
-      "createdAt": "11-Apr-2021 10:11:25",
-      "total": 3266100,
-      "detail": [
-        {
-          "productName": "Sofa Bran 2+1",
-          "productPrice": 3266100,
-          "productDiscount": 15,
-          "productQuantity": 1,
-          "productImage": "https://cdn-m2.fabelio.com/catalog/product/s/e/set_sofa_bran_2_1_dudukan.png?auto=format&w=1678&ixlib=react-9.0.3",
-          "productWeight": 3,
-          "productCategory": "Sofa",
-          "productBrand": "Bran",
-          "productID": 5
-        }
-      ],
-      "id": 3
-    },
-    {
-      "idUser": "1",
-      "status": "Unpaid",
-      "createdAt": "11-Apr-2021 10:13:43",
-      "total": 2500000,
-      "detail": [
-        {
-          "productName": "Sofa Ruang Tamu",
-          "productPrice": 2500000,
-          "productDiscount": 0,
-          "productQuantity": 1,
-          "productImage": "https://cdn-m2.fabelio.com/catalog/product/a/m/amidi_recliner_brown_21_.jpg?auto=format&ixlib=react-9.0.3",
-          "productWeight": 3,
-          "productCategory": "Sofa",
-          "productBrand": "Olympic",
-          "productID": 1
-        }
-      ],
-      "id": 4
-    },
-    {
-      "idUser": "1",
-      "status": "Paid",
-      "createdAt": "11-Apr-2021 10:15:01",
-      "total": 9213100,
-      "detail": [
-        {
-          "productName": "Sofa Ruang Tamu Vienna L Houston",
-          "productPrice": 9213100,
-          "productDiscount": 15,
-          "productQuantity": 1,
-          "productImage": "https://cdn-m2.fabelio.com/catalog/product/1/_/1_290.jpg?auto=format&w=1678&ixlib=react-9.0.3",
-          "productWeight": 3,
-          "productCategory": "Sofa",
-          "productBrand": "Houston",
-          "productID": 4
-        }
-      ],
-      "id": 5
-    },
-    {
-      "idUser": "1",
-      "status": "Paid",
-      "createdAt": "11-Apr-2021 11:30:01",
-      "total": 8065300,
-      "detail": [
-        {
-          "productName": "Sofa Bran 2+1",
-          "productPrice": 3266100,
-          "productDiscount": 15,
-          "productQuantity": 1,
-          "productImage": "https://cdn-m2.fabelio.com/catalog/product/s/e/set_sofa_bran_2_1_dudukan.png?auto=format&w=1678&ixlib=react-9.0.3",
-          "productWeight": 3,
-          "productCategory": "Sofa",
-          "productBrand": "Bran",
-          "productID": 5
-        },
-        {
-          "productName": "Meja TV Oolong",
-          "productPrice": 4799200,
-          "productDiscount": 20,
-          "productQuantity": 1,
-          "productImage": "https://cdn-m2.fabelio.com/catalog/product/f/a/fab39-2.jpg?auto=format&h=640&ixlib=react-9.0.3",
-          "productWeight": 3,
-          "productCategory": "Meja",
-          "productBrand": "Oolong",
-          "productID": 7
-        }
-      ],
-      "id": 6
-    }
-  ]
+  "transactions": []
 }

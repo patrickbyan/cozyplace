@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import LinkProduct from '../Supports/Constants/linkProduct';
 import logo from '../Supports/Assets/logo.png'
 import { connect } from 'react-redux'
 
@@ -10,6 +9,7 @@ import checkUserLogin from '../Supports/Functions/checkUserLogin'
 import { getDataCart } from '../Redux/Actions/CartAction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowAltCircleLeft, faChevronCircleLeft, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import LinkAPI from '../Supports/Constants/linkAPI'
 
 class DetailProduct extends React.Component{
     state = {
@@ -35,7 +35,7 @@ class DetailProduct extends React.Component{
     getDataProduct = () => {
         let idProduct = this.state.idProduct
 
-        axios.get(`${LinkProduct}/${idProduct}`)
+        axios.get(`${LinkAPI}/products/${idProduct}`)
         .then((res)=>{
             this.setState({dataDetailProduct: res.data})
             this.setState({mainImage: res.data.image1})

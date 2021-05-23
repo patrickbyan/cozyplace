@@ -81,12 +81,12 @@ export default class Register extends React.Component{
 
     sendDataToAPI = () => {
         if(this.state.phoneNumber !== null){
-            Axios.get(LinkAPI + '?phone=' + this.state.phoneNumber)
+            Axios.get(LinkAPI + '/users?phone=' + this.state.phoneNumber)
             .then((res) => {
                 if(res.data.length === 1){
                     this.setState({error: 'Nomor Sudah Terdaftar'})
                 }else{
-                    Axios.post(LinkAPI, {phone: this.state.phoneNumber, email: '', username: '', password: '', roles: 'user'})
+                    Axios.post(LinkAPI + '/users', {phone: this.state.phoneNumber, email: '', username: '', password: '', roles: 'user'})
                     .then((res) => {
                         console.log(res.data.id)
                         window.location = `/Signup/${res.data.id}`
@@ -100,12 +100,12 @@ export default class Register extends React.Component{
                 console.log(err)
             })
         }else{
-            Axios.get(LinkAPI + '?email=' + this.state.email)
+            Axios.get(LinkAPI + '/users?email=' + this.state.email)
             .then((res) => {
                 if(res.data.length === 1){
                     this.setState({error: 'Email Sudah Terdaftar'})
                 }else{
-                    Axios.post(LinkAPI, {phone: '', email: this.state.email, username: '', password: '', roles: 'user'})
+                    Axios.post(LinkAPI + '/users', {phone: '', email: this.state.email, username: '', password: '', roles: 'user'})
                     .then((res) => {
                         console.log(res)
                         window.location = `/Signup/${res.data.id}`

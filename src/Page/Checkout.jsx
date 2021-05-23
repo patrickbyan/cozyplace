@@ -1,7 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
-import LinkTransactions from '../Supports/Constants/LinkTransaction'
 import Swal2 from 'sweetalert2'
+import LinkAPI from '../Supports/Constants/linkAPI'
 
 export default class Checkout extends React.Component{
     state = {
@@ -15,8 +15,7 @@ export default class Checkout extends React.Component{
     getDataTransaction = () => {
         let idTransaction = this.props.location.pathname.split('/')[2]
 
-        console.log(idTransaction)
-        Axios.get(LinkTransactions + `/${idTransaction}`)
+        Axios.get(LinkAPI + `/transactions/${idTransaction}`)
         .then((res) => {
             res.data.status === 'Paid'?
                 Swal2.fire({
@@ -49,7 +48,7 @@ export default class Checkout extends React.Component{
 
         let newDate = date.split(' ')[2] + '-' + date.split(' ')[1] + '-' + date.split(' ')[3] + ' ' + date.split(' ')[4]
 
-        Axios.patch(LinkTransactions + `/${idTransaction}`, {status: 'Paid', createdAt: newDate})
+        Axios.patch(LinkAPI + `/transactions/${idTransaction}`, {status: 'Paid', createdAt: newDate})
         .then((res) => {
             Swal2.fire({
                 position: 'top',

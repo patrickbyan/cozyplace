@@ -18,7 +18,7 @@ export default class Header extends React.Component{
         let id = localStorage.getItem('id')
 
         if(id){
-            axios.get(LinkAPI + `/${id}`)
+            axios.get(LinkAPI + `/users/${id}`)
             .then((res) => {
                 this.setState({username: res.data.username})
             })
