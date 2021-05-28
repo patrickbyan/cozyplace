@@ -8,7 +8,7 @@ import checkUserLogin from '../Supports/Functions/checkUserLogin'
 // ACTION REDUX
 import { getDataCart } from '../Redux/Actions/CartAction'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleLeft, faChevronCircleLeft, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import LinkAPI from '../Supports/Constants/linkAPI'
 
 class DetailProduct extends React.Component{
@@ -66,7 +66,7 @@ class DetailProduct extends React.Component{
             )
         }
         return(
-            <div className="container-md">
+            <div className="container-xl">
                 <div className="row justify-content-center pt-5 pb-5 ">
                     <div className="col-12 close text-warning mb-3 font-weight-normal" style={{fontSize: '18px'}} role="button" onClick={() => window.location = "/products"}>
                         <FontAwesomeIcon icon={ faChevronLeft } className="mr-2" /> kembali ke daftar produk
@@ -92,18 +92,15 @@ class DetailProduct extends React.Component{
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-md-6">
+                    <div className="ml-4 mt-4 col-12 mt-md-0 ml-md-0 col-md-6">
                         <div className="row">
                             <div className="col-12 h4 pl-0 ml-0">
                                 {this.state.dataDetailProduct.name}
                             </div>
-                            <div className="col-12 font-weight-normal h6 pl-0 ml-0">
-                                Sold : ... Produk
-                            </div>
-                            <div className="col-12 h5 pl-0 ml-0">
+                            <div className="col-12 h5 pl-0 ml-0 font-weight-normal">
                                 Rp. {(this.state.dataDetailProduct.price).toLocaleString()}
                             </div>
-                            <div className="col-11 pl-0 ml-0">
+                            <div className="col-11 pl-0 ml-0 d-none d-md-block">
                                 <hr className="border-dark w-100" />
                             </div>
                             <div className="w-100 my-2">
@@ -123,20 +120,16 @@ class DetailProduct extends React.Component{
                             <div className="col-11 text-wrap text-justify pl-0 ml-0">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel repudiandae, hic dolorum maiores dolor illum
                             </div>
-                            <div className="w-100">
-
-                            </div>
-                            {
-                                this.state.isUserLogin?
-                                    <div className="col-11 pl-0 ml-0 h-100 mt-4">
+                            <div className="col-11 pl-0 ml-0 mt-4">
+                                {
+                                    this.state.isUserLogin?
                                         <input type="button" className="btn btn-warning w-100 align-self-end" onClick={this.addToCart} value="Add to Cart" />
-                                    </div>
-                                :
-                                    <div className="alert alert-warning" role="alert">
-                                        Login Terlebih Dahulu untuk Memasukan Produk ke Cart!
-                                    </div>
-
-                            }
+                                    :
+                                        <div className="alert alert-warning" role="alert">
+                                            Login Terlebih Dahulu untuk Memasukan Produk ke Cart!
+                                        </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

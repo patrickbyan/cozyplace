@@ -32,8 +32,8 @@ export default class Header extends React.Component{
     render(){
         return(
             <div className="cp-bg-primary">
-                <div className="container d-flex justify-content-between" style={{height: '25px'}}>
-                    <div>
+                <div className="container-xl d-flex justify-content-between" style={{height: '25px'}}>
+                    <div className="text-prepend">
                         <FontAwesomeIcon icon={faSearchLocation} /> Lokasi Terdekat Dengan Anda
                     </div>
                     <div>

@@ -1,4 +1,4 @@
-import { faEllipsisH, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faEllipsisH, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DropdownItem, DropdownMenu, DropdownToggle, Modal, ModalBody, UncontrolledDropdown } from 'reactstrap';
 import React from 'react'
@@ -30,7 +30,7 @@ export default class TransactionHistory extends React.Component{
     getData = () => {
         let idUser = this.state.idUser
 
-        axios.get(LinkAPI + `/transactions?idUser=${idUser}&status=Paid`)
+        axios.get(LinkAPI + `/transactions?idUser=${idUser}`)
         .then((res) => {
             this.setState({data: res.data})
         })
@@ -69,27 +69,6 @@ export default class TransactionHistory extends React.Component{
             })
 
             this.setState({weightTotal: weightTotal, quantityTotal: quantityTotal, priceTotal: priceTotal})
-
-            // let detailTransaction = this.state.detailData.map((value, index) => {
-            //     return{
-            //         idTransaction: value.id,
-            //         tanggal: value.createdAt.split(' ')[0].split('-')[0],
-            //         bulan: value.createdAt.split(' ')[0].split('-')[1],
-            //         tahun: value.createdAt.split(' ')[0].split('-')[2],
-            //         jam: value.createdAt.split(' ')[1],
-            //         kategori: value.detail[0].productCategory,
-            //         idProduct: value.detail[0].productID,
-            //         merk: value.detail[0].productBrand,
-            //         gambar: value.detail[0].productImage,
-            //         nama: value.detail[0].productName,
-            //         quantity: value.detail[0].productQuantity,
-            //         harga: value.detail[0].productPrice,
-            //         totalprice: value.detail[0].productPrice * value.detail[0].productQuantity,
-            //         berat: value.detail[0].productWeight
-            //     }
-            // })
-
-            // this.setState({detailTransaction: detailTransaction, showModal: true})
         })
 
         .catch((err) => {
@@ -109,19 +88,16 @@ export default class TransactionHistory extends React.Component{
         }
 
         return(
-            <div>
-                <h5 className="font-weight-bold">
-                    Daftar Transaksi
-                </h5>
-
-                <div className="container rounded-lg card">
+            <div className="mb-5">
+                <div className="container rounded-lg card mb-1 border-0">
+                    <h5 className="font-weight-bold mt-3">Daftar Transaksi</h5>
                     {/* Kepala */}
-                    <div className="row py-3">
+                    {/* <div className="row py-3">
                         <div className="col-4">
                             <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="Cari transaksimu disini" />
+                                <input type="text" className="form-control border-warning" placeholder="Cari transaksimu disini" />
                                 <div className="input-group-append">
-                                    <button className="btn btn-outline-secondary" type="button">
+                                    <button className="btn btn-outline-warning" type="button">
                                         <FontAwesomeIcon icon={faSearch} className="cp-font-size-18" />
                                     </button>
                                 </div>
@@ -130,7 +106,7 @@ export default class TransactionHistory extends React.Component{
                         <div className="col-4">
                             <div className="dropdown">
                                 <UncontrolledDropdown className="ml-3" disabled>
-                                    <DropdownToggle caret color="outline-secondary text-left" style={{width: '100%'}}>
+                                    <DropdownToggle caret color="outline-warning text-left" style={{width: '100%'}}>
                                         Sort
                                     </DropdownToggle>
                                     <DropdownMenu>
@@ -144,24 +120,24 @@ export default class TransactionHistory extends React.Component{
                         </div>
                         <div className="col-4">
                             <div className="input-group mb-3">
-                                <input type="text" className="form-control" placeholder="Pilih Tanggal Transaksi" disabled/>
+                                <input type="text" className="form-control border-warning" placeholder="Pilih Tanggal Transaksi" disabled/>
                                 <div className="input-group-append">
-                                    <button className="btn btn-outline-secondary" type="button" disabled>
+                                    <button className="btn btn-outline-warning" type="button" disabled>
                                         <FontAwesomeIcon icon={faSearch} className="cp-font-size-18" />
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     
                     {/* Body */}
                     <div>
-                        <div className="">
+                        <div className="px-0">
                             {
                                 this.state.data.map((value, index) => {
                                     return(
-                                        <div key={index} className="container shadow rounded-lg mb-4 pt-3">
-                                            <div>
+                                        <div key={index} className="container-xl shadow rounded-lg mb-1 p-4 mt-3">
+                                            <div className="pb-1">
                                                 {/* Head Body */}
                                                 <span>
                                                     <FontAwesomeIcon icon={faShoppingBag} className="cp-font-size-16 text-warning" />
@@ -169,80 +145,157 @@ export default class TransactionHistory extends React.Component{
                                                 <span className="mx-3 font-weight-bold cp-font-size-14">
                                                     {value.productCategory}
                                                 </span>
-                                                <span className="mr-3 badge badge-warning text-light">
-                                                    Selesai
-                                                </span>
-                                                <span className="text-muted cp-font-size-12 font-weight-normal text-nowrap">
-                                                    {/* INV/{value.tahun}/{value.bulan.toUpperCase()}/{value.tanggal}/{this.state.idUser}/{value.idTransaction} */}
-                                                </span>
-                                            </div>
-                                {
-                                    value.detail.map((val, idx) => {
-                                        return(
-                                            <>
                                                 {
-                                                    idx >= 1?
-                                                        <>
-                                                            <hr />
-                                                        </>
+                                                    value.status === "Unpaid"?
+                                                        <span className="badge badge-danger text-light">
+                                                            Unpaid
+                                                        </span>
                                                     :
-                                                        null
-                                                }
-                                                {/* Isi Body */}
-                                                <div className="my-2 font-weight-light">
-                                                    Merk: <span className="font-weight-bold">{val.productBrand}</span>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col-2">
-                                                        <img src={val.productImage} alt=".." style={{width: '100%'}} />
-                                                    </div>
-                                                    <div className="col-8">
-                                                        <div className="font-weight-bold">
-                                                            {val.productName}
-                                                        </div>
-                                                        <div className="font-weight-light text-muted cp-font-size-14">
-                                                            {val.productQuantity} barang x Rp {val.productPrice.toLocaleString()}
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    {
-                                                        idx === 0?
                                                         <>
-                                                            <div className="col-1 text-nowrap">
-                                                                <div className="font-weight-bold">
-                                                                    Total Belanja
+                                                            <span className="mr-3 badge badge-success text-light">
+                                                                Paid
+                                                            </span>
+                                                            <span className="badge badge-warning text-light">
+                                                                Shipped
+                                                            </span>
+                                                        </>
+                                                }
+                                                <span className="text-muted cp-font-size-12 font-weight-normal text-nowrap ml-3">
+                                                    INV/{value.idUser}/{value.id}/{value.createdAt.split(" ")[0].split("-")[0]}/{value.createdAt.split(" ")[0].split("-")[1]}/
+                                                    {value.createdAt.split(" ")[0].split("-")[2]}/{value.createdAt.split(" ")[1].split(":")[0]}
+                                                </span>
+                                                <div className="mt-4">
+                                                    <hr className="border-warning mx-1"/>
+                                                </div>
+                                            </div>
+                                            {
+                                                value.detail.map((val, idx) => {
+                                                    return(
+                                                        <>
+                                                            {
+                                                                idx >= 1?
+                                                                    <>
+                                                                        <hr className="border-warning mx-xl-5"/>
+                                                                    </>
+                                                                :
+                                                                    null
+                                                            }
+                                                            {/* Isi Body */}
+                                                            <div className="mx-xl-5">
+                                                                <div className="my-2 font-weight-light">
+                                                                    Merk: <span className="font-weight-bold">{val.productBrand}</span>
                                                                 </div>
-                                                                <div>
-                                                                    Rp {this.state.data[index].total.toLocaleString()}
+                                                                <div className="row">
+                                                                    <div className="col-xl-2 col-12">
+                                                                        <img src={val.productImage} alt=".." style={{width: '100%'}} />
+                                                                    </div>
+                                                                    <div className="col-xl-8 col-6">
+                                                                        <div className="font-weight-bold">
+                                                                            {val.productName}
+                                                                        </div>
+                                                                        <div className="font-weight-light text-muted cp-font-size-14">
+                                                                            {val.productQuantity} barang x Rp {val.productPrice.toLocaleString()}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-xl-1 col-6 text-nowrap">
+                                                                        <div className="font-weight-bold">
+                                                                            Harga
+                                                                        </div>
+                                                                        <div>
+                                                                            Rp {(val.productQuantity * val.productPrice).toLocaleString()}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </>
-                                                    :
-                                                        null
-                                                    }
+                                                    )
+                                                })
+                                            }
+                                            <hr className="border-warning mt-3 mx-1"/>
+                                            <div className="row align-items-center">
+                                                <div className="col-xl-6 col-8">
+                                                    <span className="font-weight-bold">
+                                                        Total Belanja
+                                                    </span>
+                                                    <span className="ml-4 text-right">
+                                                        Rp {this.state.data[index].total.toLocaleString()}
+                                                    </span>
                                                 </div>
-                                            </>
-                                        )
-                                    })
-                                }
-                                            <div className="row align-items-center mt-3">
-                                                <div className="col-6">
-
-                                                </div>
-                                                <div className="col-3 text-right mb-3">
-                                                    <div className="text-warning font-weight-bold cp-font-size-14 cp-clickable-element" onClick={() => this.getDetail(value.id)}>
+                                                <div className="col-xl-3 col-8 text-xl-right">
+                                                    <div className="text-warning font-weight-bold cp-font-size-14" role="button" onClick={() => this.getDetail(value.id)}>
                                                         Lihat Detail Transaksi
                                                     </div>
                                                 </div>
-                                                <div className="col-2">
-                                                    <button className="btn btn-warning mb-3" type="button" style={{width: '100%'}} onClick={() => window.location = `/detailProduct/${value.idProduct}`}>
-                                                        Beli Lagi
-                                                    </button>
+                                                <div className="col-xl-2 col-1">
+                                                    {
+                                                        value.status === "Paid"?
+                                                            value.detail.length > 1?
+                                                            <div class="btn-group dropup w-100">
+                                                                <button className="btn btn-warning mb-3 d-none d-xl-block rounded" type="button" style={{width: '100%'}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    Beli Lagi
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    {
+                                                                        value.detail.map((value, index) => {
+                                                                            return(
+                                                                                <>
+                                                                                    <a class="dropdown-item" role="button" onClick={() => window.location = `/detailProduct/${value.productID}`}>
+                                                                                        {value.productName}
+                                                                                    </a>
+                                                                                    
+                                                                                </>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            :
+                                                            <button className="btn btn-warning mb-3 d-none d-xl-block" type="button" style={{width: '100%'}} onClick={() => window.location = `/detailProduct/${value.id}`}>
+                                                                Beli Lagi
+                                                            </button>
+                                                    :
+                                                        <button className="btn btn-danger mb-3 d-none d-xl-block" type="button" style={{width: '100%'}} onClick={() => window.location = `/checkout/${value.id}`}>
+                                                            Lanjut Bayar
+                                                        </button>
+                                                    }
                                                 </div>
-                                                <div className="col-1">
-                                                    <button className="btn btn-outline-secondary mb-3" type="button" style={{width: '100%'}}>
+                                                <div className="col-1 ml-xl-0 ml-md-5 ml-3">
+                                                    <button className="btn btn-outline-secondary mb-3" type="button">
                                                         <FontAwesomeIcon icon={faEllipsisH} />
                                                     </button>
+                                                </div>
+                                                <div className="col-12">
+                                                    {
+                                                        value.status === "Paid"?
+                                                        value.detail.length > 1?
+                                                        <div class="btn-group dropup w-100">
+                                                            <button className="btn btn-warning mb-3 d-block d-xl-none" type="button" style={{width: '100%'}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Beli Lagi
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                {
+                                                                    value.detail.map((value, index) => {
+                                                                        return(
+                                                                            <>
+                                                                                <a class="dropdown-item" role="button" onClick={() => window.location = `/detailProduct/${value.productID}`}>
+                                                                                    {value.productName}
+                                                                                </a>
+                                                                                
+                                                                            </>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        <button className="btn btn-warning mb-3 d-block d-xl-none" type="button" style={{width: '100%'}} onClick={() => window.location = `/detailProduct/${value.id}`}>
+                                                            Beli Lagi
+                                                        </button>
+                                                    :
+                                                        <button className="btn btn-danger mb-3 d-block d-xl-none" type="button" style={{width: '100%'}} onClick={() => window.location = `/checkout/${value.id}`}>
+                                                            Lanjut Bayar
+                                                        </button>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -258,7 +311,7 @@ export default class TransactionHistory extends React.Component{
                     this.state.detailData?
                         this.state.detailData.map((value, index) => {
                             return(
-                                <Modal toggle={() => this.setState({showModal: false})} isOpen={this.state.showModal} className="width-800">
+                                <Modal toggle={() => this.setState({showModal: false})} isOpen={this.state.showModal} className="">
                                     <ModalBody>
                                         <div className="container">
                                             <div className="font-weight-bold h5 text-center">
@@ -271,7 +324,8 @@ export default class TransactionHistory extends React.Component{
                                                             Nomor Invoice
                                                         </div>
                                                         <div className="col-6 border-right cp-clickable-element text-warning">
-                                                            {/* INV/{value.tahun}/{value.bulan.toUpperCase()}/{value.tanggal}/{this.state.idUser}/{value.idProduct}/{value.idTransaction} */}
+                                                            INV/{value.idUser}/{value.id}/{value.createdAt.split(" ")[0].split("-")[0]}/{value.createdAt.split(" ")[0].split("-")[1]}/
+                                                            {value.createdAt.split(" ")[0].split("-")[2]}/{value.createdAt.split(" ")[1].split(":")[0]}
                                                         </div>
                                                         <div className="col-2 ml-3 cp-clickable-element text-warning">
                                                             Cetak
@@ -280,14 +334,8 @@ export default class TransactionHistory extends React.Component{
                                                             Status
                                                         </div>
                                                         <div className="col-12">
-                                                            Pesanan Selesai
+                                                            {value.status}
                                                         </div>
-                                                        {/* <div className="col-12 text-muted font-weight-normal cp-font-size-13 mt-3">
-                                                            Brand
-                                                        </div>
-                                                        <div className="col-12 text-warning">
-                                                            {value.productBrand}
-                                                        </div> */}
                                                         <div className="col-12 text-muted font-weight-normal cp-font-size-13 mt-3">
                                                             Tanggal Pembelian
                                                         </div>
@@ -379,11 +427,6 @@ export default class TransactionHistory extends React.Component{
                                                 </div>
                                                 <div className="col-12">
                                                     <hr style={{borderWidth: '1px'}}/>
-                                                </div>
-                                                <div className="col-3">
-                                                    <button className="btn btn-warning mb-3" type="button" style={{width: '100%'}} onClick={() => window.location = `/detailProduct/${value.idProduct}`}>
-                                                        Beli Lagi
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

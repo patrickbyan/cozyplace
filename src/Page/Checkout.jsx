@@ -82,12 +82,11 @@ export default class Checkout extends React.Component{
             )
         }
         return(
-            <div className="container" style={{marginTop: '50px'}}>
-                <h4>Checkout</h4>
-
+            <div className="container-xl my-5">
+                <h4 className="font-weight-bold">Checkout</h4>
                 <div className="row">
-                    <div className="col-7 mt-2">
-                        <div className="card shadow px-4">
+                    <div className="col-md-7 col-12 mt-2">
+                        <div className="card shadow px-4 border border-0 rounded-xl">
                             <div className="my-2">
                                 <h5 className="card-title my-2">
                                     Your Items:
@@ -138,11 +137,9 @@ export default class Checkout extends React.Component{
                         </div>
                         </div>
                     </div>
-
-                    <div className="col-5">
-
+                    <div className="col-md-5 col-12 mt-2 mt-md-0" style={{padding: '0px 30px 0px 30px'}}>
                         <div className="row mt-2">
-                            <div className="col-12 shadow pt-3">
+                            <div className="col-12 shadow pt-3 rounded-xl">
                                 <h5>
                                     Alamat Pengiriman
                                 </h5>
@@ -164,7 +161,7 @@ export default class Checkout extends React.Component{
                             </div>
 
                             <div className="col-12">
-                                <div className="mb-2 mt-3 shadow row">
+                                <div className="mb-2 mt-3 shadow row rounded-xl">
                                     <div className="col-12">
                                         <div className="row justify-content-between align-items-center">
                                             <div className="col">
@@ -214,19 +211,13 @@ export default class Checkout extends React.Component{
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="mb-3">
-                                            
-                                        </div>
+                                        <div className="mb-3"></div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         )
     }

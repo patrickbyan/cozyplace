@@ -33,7 +33,7 @@ export default class Footer2 extends React.Component{
     render(){
         return(
         <>
-            <div className="container d-none d-md-flex mt-4">
+            <div className="container-xl d-none d-md-flex mt-4">
                 <div className="row">
                     <div className="col-3">
                         <ul className="list-unstyled">
@@ -82,7 +82,7 @@ export default class Footer2 extends React.Component{
                         </ul>
                     </div>
                     <div className="col-3">
-                        <ul className="list-unstyled text-nowrap">
+                        <ul className="list-unstyled text-wrap">
                             <li><h5 className="mt-3">Daftar & Dapatkan Voucher Diskon Rp 50.000</h5></li>
                             <br />
                             <li>
@@ -102,18 +102,29 @@ export default class Footer2 extends React.Component{
                     </div>
                 </div>
             </div>
-            <div className="bg-secondary height-70 d-block text-center">
+            <div className="bg-secondary d-block text-center border">
                 <div>
-                    <span><img src={logo} alt="logo" width="90px" /></span>
                     <span className="align-middle text-light">© </span>
-                    <span className="align-middle" style={{color: 'gold'}}>PATRICK BYAN</span>
+                    <span className="align-middle">
+                        <a href="https://patrickbyan.netlify.app/" target="_blank" style={{color: 'gold'}}>PATRICK BYAN</a>
+                    </span>
                     <span className="align-middle text-light"> 2021 | TEMPLATE CREATED BY </span>
-                    <span className="align-middle" style={{color: 'gold'}}>PATRICK BYAN</span>
+                    <span className="align-middle">
+                        <a href="https://patrickbyan.netlify.app/" target="_blank" style={{color: 'gold'}}>PATRICK BYAN</a>
+                    </span>
                     <span className="align-middle text-light"> | PURWADHIKA JCWM STUDENT</span>
-                    <p className="text-light font-weight-lighter mt-n2">This website is for illustration purposes only. Profits are none taken. Credits to 
-                    <span><a href="https://www.fabelio.com" target="_blank" rel="noreferrer" className="text-light font-weight-lighter pl-1 pb-2">
-                        fabelio, jotun, ikea
-                    </a></span></p>
+                    <p className="text-light font-weight-lighter">This website is for illustration purposes only. Profits are none taken. Credits to 
+                    <span>
+                        <a href="https://www.fabelio.com" target="_blank" rel="noreferrer" className="text-light font-weight-lighter pl-1 pb-2">
+                        Fabelio,
+                        </a>
+                        <a href="https://www.jotun.com/my/en/b2c/colours-inspirations/" target="_blank" rel="noreferrer" className="text-light font-weight-lighter pl-1 pb-2">
+                        Jotun,
+                        </a>
+                        <a href="https://www.ikea.co.id/" target="_blank" rel="noreferrer" className="text-light font-weight-lighter pl-1 pb-2">
+                        Ikea
+                        </a>
+                    </span></p>
                 </div>
             </div>
         </>

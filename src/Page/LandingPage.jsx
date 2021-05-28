@@ -22,57 +22,40 @@ function SamplePrevArrow(props) {
 
 class LandingPage extends React.Component {
     render() {
-        const settings = {
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            // autoplay: true,
-            autoplaySpeed: 3000,
-            pauseOnHover: true,
-            initialSlide: 0,
-            nextArrow: <SampleNextArrow />,
-            prevArrow: <SamplePrevArrow />,
-            appendDots: dots => <ul>{dots}</ul>,
-              customPaging: i => (
-                <div className="slick-dots-custom"></div>
-              )
-        };
-        
         return (
         <>
-            <div>
-                <Slider {...settings}>
-                    <div>
-                        <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-02-1000x515_tcm61-178456.jpg" alt="..." className="w-100 jumbotron-landing-page" />
-                    </div> 
-                    <div>
-                        <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-03-1000x515_tcm61-180034.jpg" alt="..." className="w-100 jumbotron-landing-page" />
+            <div id="jumbotronCarrousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#jumbotronCarrousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#jumbotronCarrousel" data-slide-to="1"></li>
+                    <li data-target="#jumbotronCarrousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-02-1000x515_tcm61-178456.jpg" alt="..." className="d-block w-100 jumbotron-landing-page" />
                     </div>
-                    <div>
-                        <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-04-1000x515_tcm61-180035.jpg" alt="..." className="w-100 jumbotron-landing-page" />
+                    <div class="carousel-item">
+                        <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-03-1000x515_tcm61-180034.jpg" alt="..." className="d-block w-100 jumbotron-landing-page" />
                     </div>
-                </Slider>
-                {/* <div className="container text-center text-md-left card-img-overlay border border-dark" style={{width: '10px', height: '100px', paddingTop: '200px'}}> */}
-                <div className="container cp-font-size-70 text-center card-img-overlay" style={{width: '500px', height: '100px', paddingTop: '200px'}} >
-                    <img src={slogan} alt="..."/>
+                    <div class="carousel-item">
+                        <img src="https://jotunimages.azureedge.net/images/images/wisdom-carousel-04-1000x515_tcm61-180035.jpg" alt="..." className="d-block w-100 jumbotron-landing-page" />
+                    </div>
                 </div>
-                    {/* <input type="button" className="btn btn-warning" value="Shop Now!" /> */}
-                {/* </div> */}
-            </div>
-
-            {/* 
-            <div className="d-flex align-items-center jumbotron-landing-page">
-                <div className="container text-center text-md-left">
-                    <h1 className="cp-font-size-70">
-                        Sale Up To 20%
-                    </h1>
-                    <input type="button" className="btn btn-warning" value="Shop Now!" />
+                <a class="carousel-control-prev" href="#jumbotronCarrousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#jumbotronCarrousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                <div className="container card-img-overlay d-md-block d-none" style={{width: '550px', height: '300px', marginTop: '75px'}}>
+                    <img src={slogan} alt="..." className="p-2"/>
+                </div>
+                <div className="container card-img-overlay d-md-none d-block" style={{marginTop: '80px'}}>
+                    <img src={slogan} alt="..." className="p-5 w-100"/>
                 </div>
             </div>
-            */}
-
             <div>
                 <FlashSale />
             </div>

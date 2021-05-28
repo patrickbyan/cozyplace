@@ -15,7 +15,7 @@
       "name": "Sofa Ruang Tamu",
       "brand": "Olympic",
       "category": "Sofa",
-      "stock": 11,
+      "stock": 10,
       "price": 2500000,
       "diskon": 0,
       "weight": 3000,
@@ -41,7 +41,7 @@
       "name": "Sofa Dudukan Mutoyo",
       "brand": "Mutoyo",
       "category": "Sofa",
-      "stock": 17,
+      "stock": 16,
       "price": 1999000,
       "diskon": 0,
       "weight": 3000,
@@ -67,7 +67,7 @@
       "name": "Sofa Bran 2+1",
       "brand": "Bran",
       "category": "Sofa",
-      "stock": 12,
+      "stock": 11,
       "price": 3266100,
       "diskon": 15,
       "weight": 3000,
@@ -210,7 +210,7 @@
       "name": "Hamilton Lampu Lantai Minimalis Indoor White",
       "brand": "Hamilton",
       "category": "Lampu Lantai",
-      "stock": 19,
+      "stock": 18,
       "price": 909000,
       "diskon": 30,
       "weight": 3000,
@@ -223,7 +223,7 @@
       "name": "Baltimore Lampu Lantai Minimalis White Indoor",
       "brand": "Baltimore",
       "category": "Lampu Lantai",
-      "stock": 14,
+      "stock": 13,
       "price": 909000,
       "diskon": 30,
       "weight": 3000,
@@ -272,5 +272,97 @@
     }
   ],
   "carts": [],
-  "transactions": []
+  "transactions": [
+    {
+      "idUser": "1",
+      "status": "Paid",
+      "createdAt": "25-May-2021 21:50:53",
+      "total": 5766100,
+      "detail": [
+        {
+          "productName": "Sofa Ruang Tamu",
+          "productPrice": 2500000,
+          "productDiscount": 0,
+          "productQuantity": 1,
+          "productImage": "https://cdn-m2.fabelio.com/catalog/product/a/m/amidi_recliner_brown_21_.jpg?auto=format&ixlib=react-9.0.3",
+          "productWeight": 3,
+          "productCategory": "Sofa",
+          "productBrand": "Olympic",
+          "productID": 1
+        },
+        {
+          "productName": "Sofa Bran 2+1",
+          "productPrice": 3266100,
+          "productDiscount": 15,
+          "productQuantity": 1,
+          "productImage": "https://cdn-m2.fabelio.com/catalog/product/s/e/set_sofa_bran_2_1_dudukan.png?auto=format&w=1678&ixlib=react-9.0.3",
+          "productWeight": 3,
+          "productCategory": "Sofa",
+          "productBrand": "Bran",
+          "productID": 5
+        }
+      ],
+      "id": 1
+    },
+    {
+      "idUser": "1",
+      "status": "Paid",
+      "createdAt": "25-May-2021 20:36:15",
+      "total": 909000,
+      "detail": [
+        {
+          "productName": "Baltimore Lampu Lantai Minimalis White Indoor",
+          "productPrice": 909000,
+          "productDiscount": 30,
+          "productQuantity": 1,
+          "productImage": "https://cdn-m2.fabelio.com/catalog/product/l/a/lampu_burlinfton_white.jpg?auto=format&h=640&ixlib=react-9.0.3",
+          "productWeight": 3,
+          "productCategory": "Lampu Lantai",
+          "productBrand": "Baltimore",
+          "productID": 17
+        }
+      ],
+      "id": 2
+    },
+    {
+      "idUser": "1",
+      "status": "Paid",
+      "createdAt": "25-May-2021 20:36:37",
+      "total": 909000,
+      "detail": [
+        {
+          "productName": "Hamilton Lampu Lantai Minimalis Indoor White",
+          "productPrice": 909000,
+          "productDiscount": 30,
+          "productQuantity": 1,
+          "productImage": "https://cdn-m2.fabelio.com/catalog/product/l/a/lampu_lantai_baltimore_black-_5_.jpg?auto=format&w=1678&ixlib=react-9.0.3",
+          "productWeight": 3,
+          "productCategory": "Lampu Lantai",
+          "productBrand": "Hamilton",
+          "productID": 16
+        }
+      ],
+      "id": 3
+    },
+    {
+      "idUser": "1",
+      "status": "Paid",
+      "createdAt": "25-May-2021 21:21:11",
+      "total": 1999000,
+      "detail": [
+        {
+          "productName": "Sofa Dudukan Mutoyo",
+          "productPrice": 1999000,
+          "productDiscount": 0,
+          "productQuantity": 1,
+          "productImage": "https://cdn-m2.fabelio.com/catalog/product/s/o/sofa1d_mutoyo_teal_2a_2-1_hires.jpg?auto=format&w=1678&ixlib=react-9.0.3",
+          "productWeight": 3,
+          "productCategory": "Sofa",
+          "productBrand": "Mutoyo",
+          "productID": 3
+        }
+      ],
+      "id": 4
+    }
+  ]
 }

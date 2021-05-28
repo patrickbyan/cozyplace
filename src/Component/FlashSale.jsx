@@ -11,8 +11,8 @@ import LinkAPI from "../Supports/Constants/linkAPI";
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
-        <div className="carousel-control-next" role="button" onClick={onClick}>
-            <span className="carousel-control-next-icon fa" style={{ ...style, marginLeft: '220px' }}></span>
+        <div className="carousel-control-next slick-arrow-rs" role="button" onClick={onClick}>
+            <span className="carousel-control-next-icon-rs fa" style={{ ...style, marginLeft: '220px' }}></span>
         </div>
     );
 }
@@ -20,8 +20,8 @@ function SampleNextArrow(props) {
 function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
-        <div className="carousel-control-prev slick-arrow" role="button" onClick={onClick}>
-            <span className="carousel-control-prev-icon fa" style={{ ...style, marginRight: '220px' }}></span>
+        <div className="carousel-control-prev slick-arrow-rs" role="button" onClick={onClick}>
+            <span className="carousel-control-prev-icon-rs fa" style={{ ...style, marginRight: '220px' }}></span>
         </div>
     );
 }
@@ -92,7 +92,7 @@ export default class FlashSale extends Component {
             pauseOnHover: true,
             initialSlide: 0,
             nextArrow: <SampleNextArrow />,
-            prevArrow: <SamplePrevArrow />
+            prevArrow: <SamplePrevArrow />,
         }
 
         if(this.state.dataSale === null){
@@ -105,7 +105,7 @@ export default class FlashSale extends Component {
             )
         }    
         return (
-            <div className="cp-bg-white d-md-block d-none">
+            <div className="cp-bg-white d-xl-block d-none">
                 <div className="container pt-4 cp-bg-white">
                     <div className="text-center">
                         <h2 className="font-weight-bold">FLASH SALE</h2>

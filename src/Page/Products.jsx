@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompressAlt } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import LinkAPI from '../Supports/Constants/linkAPI';
+import { searchText } from '../Redux/Actions/CartAction'
 
 class Products extends React.Component{
     state = {
@@ -24,6 +25,7 @@ class Products extends React.Component{
     componentDidMount(){
         this.getDataProdutcs()
         this.getDataCatAndBrand()
+        console.log(this.props.carts.searchResult)
     }
 
     getDataProdutcs = () => {
@@ -155,10 +157,10 @@ class Products extends React.Component{
                         </nav>
                     </div>
                     <div>
-                        <h2 className="container font-weight-bolder my-4 mb-2">
+                        <h2 className="container-xl font-weight-bolder my-4 mb-2">
                             Berdasarkan Kategori Produk
                         </h2>
-                        <div className="container d-flex py-2">
+                        <div className="container-xl d-flex py-2">
                             <div role="button" onClick={() => this.onSortCategory("Sofa")}>
                                 <img src="https://cdn-m2.fabelio.com/catalog/category/All_Set_Ruang_Tamu2.jpg?auto=format&w=160&ixlib=react-9.0.3" className="half-radius mr-3 height-150 width-150" alt="..." />
                                 <h5 className="font-weight-bold text-center width-150">
@@ -188,7 +190,7 @@ class Products extends React.Component{
                 </div>
 
                 {/* FILTER DAN SORT */}
-                <div className="container">
+                <div className="container-xl">
                     <div className="row my-5 align-items-center">
                         <div className="col-10 d-flex">
                             <button type="button" className="btn btn-outline-secondary" onClick={() => this.setState({showModal: true})}>
@@ -236,14 +238,14 @@ class Products extends React.Component{
 
                 {/* CATALOG */}
                 <div className="container">
-                    <div className="row row-cols-1 row-cols-md-4">
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-xl-4">
                         {
                             this.props.carts.searchResult?
                                 this.props.carts.searchResult.map((value, index) => {
                                     return(
                                         <Link to={`/detailProduct/${value.id}`} className="text-decoration-none cp-link">
                                             <div className="col mb-4" key={index}>
-                                                <div className="card full-radius height-300">
+                                                <div className="card rounded-xl shadow h-100">
                                                     <Slider {...cardImg}>
                                                         <img src={value.image1} className="card-img-top p-3" alt="..."/>
                                                         <img src={value.image2} className="card-img-top p-3" alt="..."/>
@@ -256,8 +258,8 @@ class Products extends React.Component{
                                                     </Slider>
                                                         {
                                                             value.diskon?
-                                                                <div className="card-img-overlay width-40">
-                                                                    <div className="width-40 bg-light text-center">
+                                                                <div className="card-img-overlay">
+                                                                    <div className="bg-light text-center w-25">
                                                                         {value.diskon}%
                                                                     </div>
                                                                 </div>
@@ -265,22 +267,22 @@ class Products extends React.Component{
                                                                 null
                                                         }
                                                     <div className="card-body">
-                                                        <h6 className="card-title height-50">{value.name}</h6>
+                                                        <h6 className="card-title">{value.name}</h6>
                                                         <div className="card-text">
                                                         {
                                                             value.diskon?
-                                                            <>
+                                                        
                                                                 <div>
-                                                                    <>
+                                                                   
                                                                     <span className="font-weight-bold">
                                                                         Rp. {((value.price - (value.price * (value.diskon / 100))).toLocaleString())}
                                                                     </span>
                                                                     <span className="text-muted pl-1 font-weight-lighter">
                                                                         <del>{(value.price).toLocaleString()}</del>
                                                                     </span>
-                                                                    </>
+                                                                   
                                                                 </div>
-                                                            </>
+                                                      
                                                             :
                                                                 <p className="font-weight-bold">
                                                                     Rp. {(value.price).toLocaleString()}
@@ -304,10 +306,9 @@ class Products extends React.Component{
                                     this.state.dataProducts?
                                         this.state.dataProducts.map((value, index) => {
                                             return(
-                                                <>
                                                 <Link to={`/detailProduct/${value.id}`} className="text-decoration-none cp-link">
                                                     <div className="col mb-4" key={index}>
-                                                        <div className="card full-radius height-300">
+                                                        <div className="card rounded-xl shadow h-100">
                                                             <Slider {...cardImg}>
                                                                 <img src={value.image1} className="card-img-top p-3" alt="..."/>
                                                                 <img src={value.image2} className="card-img-top p-3" alt="..."/>
@@ -320,8 +321,8 @@ class Products extends React.Component{
                                                             </Slider>
                                                                 {
                                                                     value.diskon?
-                                                                        <div className="card-img-overlay width-40">
-                                                                            <div className="width-40 bg-light text-center">
+                                                                        <div className="card-img-overlay">
+                                                                            <div className="bg-light text-center w-25">
                                                                                 {value.diskon}%
                                                                             </div>
                                                                         </div>
@@ -329,22 +330,19 @@ class Products extends React.Component{
                                                                         null
                                                                 }
                                                             <div className="card-body">
-                                                                <h6 className="card-title height-50">{value.name}</h6>
+                                                                <h6 className="card-title">{value.name}</h6>
                                                                 <div className="card-text">
                                                                 {
                                                                     value.diskon?
-                                                                    <>
                                                                         <div>
-                                                                            <>
                                                                             <span className="font-weight-bold">
                                                                                 Rp. {((value.price - (value.price * (value.diskon / 100))).toLocaleString())}
                                                                             </span>
                                                                             <span className="text-muted pl-1 font-weight-lighter">
                                                                                 <del>{(value.price).toLocaleString()}</del>
                                                                             </span>
-                                                                            </>
                                                                         </div>
-                                                                    </>
+                                                                   
                                                                     :
                                                                         <p className="font-weight-bold">
                                                                             Rp. {(value.price).toLocaleString()}
@@ -361,7 +359,6 @@ class Products extends React.Component{
                                                         </div>
                                                     </div>
                                                 </Link>
-                                                </>
                                             )
                                         })
                                     :
@@ -370,10 +367,9 @@ class Products extends React.Component{
                                     this.state.dataProducts?
                                         this.state.dataProducts.map((value, index) => {
                                             return(
-                                                <>
                                                 <Link to={`/detailProduct/${value.id}`} className="text-decoration-none cp-link">
                                                     <div className="col mb-4" key={index}>
-                                                        <div className="card full-radius height-300">
+                                                        <div className="card rounded-xl shadow h-100">
                                                             <Slider {...cardImg}>
                                                                 <img src={value.image1} className="card-img-top p-3" alt="..."/>
                                                                 <img src={value.image2} className="card-img-top p-3" alt="..."/>
@@ -386,8 +382,8 @@ class Products extends React.Component{
                                                             </Slider>
                                                                 {
                                                                     value.diskon?
-                                                                        <div className="card-img-overlay width-40">
-                                                                            <div className="width-40 bg-light text-center">
+                                                                        <div className="card-img-overlay">
+                                                                            <div className="bg-light text-center w-25">
                                                                                 {value.diskon}%
                                                                             </div>
                                                                         </div>
@@ -395,22 +391,18 @@ class Products extends React.Component{
                                                                         null
                                                                 }
                                                             <div className="card-body">
-                                                                <h6 className="card-title height-50">{value.name}</h6>
+                                                                <h6 className="card-title">{value.name}</h6>
                                                                 <div className="card-text">
                                                                 {
                                                                     value.diskon?
-                                                                    <>
                                                                         <div>
-                                                                            <>
                                                                             <span className="font-weight-bold">
                                                                                 Rp. {((value.price - (value.price * (value.diskon / 100))).toLocaleString())}
                                                                             </span>
                                                                             <span className="text-muted pl-1 font-weight-lighter">
                                                                                 <del>{(value.price).toLocaleString()}</del>
                                                                             </span>
-                                                                            </>
                                                                         </div>
-                                                                    </>
                                                                     :
                                                                         <p className="font-weight-bold">
                                                                             Rp. {(value.price).toLocaleString()}
@@ -427,7 +419,6 @@ class Products extends React.Component{
                                                         </div>
                                                     </div>
                                                 </Link>
-                                                </>
                                             )
                                         })
                                     :
@@ -504,10 +495,14 @@ class Products extends React.Component{
     }
 }
 
-const mapDispatchToProps = (state) => {
+const mapStateToProps = (state) => {
     return{
         carts: state.carts
     }
 }
 
-export default connect(mapDispatchToProps, '')(Products)
+const mapDispatchToProps = {
+    searchText
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Products)

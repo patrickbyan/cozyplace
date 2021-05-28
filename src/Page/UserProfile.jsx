@@ -47,8 +47,8 @@ export default class UserProfile extends React.Component{
                                 Transaction History
                             </button>
                         </Link>
-                        {/* <Link to="/user-profile/profile">
-                            <button type="button" className="btn btn-warning badge-pill" onClick={() => this.setState({isRefresh: true})}>
+                        <Link to="/user-profile/profile">
+                            <button type="button" className="btn btn-warning badge-pill mx-3" onClick={() => this.setState({isRefresh: true})}>
                                 Profile
                             </button>
                         </Link>
@@ -56,7 +56,7 @@ export default class UserProfile extends React.Component{
                             <button type="button" className="btn btn-warning badge-pill" onClick={() => this.setState({isRefresh: true})}>
                                 Address
                             </button>
-                        </Link> */}
+                        </Link>
                     </div>
                     <div className="col-12 mt-3">
                         
@@ -64,7 +64,7 @@ export default class UserProfile extends React.Component{
                     <div className="col-12">
                             <Switch>
                                 <Route exact path='/' component={LandingPage} />
-                                {/* <Route path='/user-profile/profile' component={Profile} /> */}
+                                <Route path='/user-profile/profile' component={Profile} />
                                 <Route path='/user-profile/transaction-history' component={TransactionHistory} />
                             </Switch>
                     </div>

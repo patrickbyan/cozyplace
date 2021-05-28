@@ -59,7 +59,7 @@ export const getDataCart = (idProduct, idUser, quantity) => {
                         })
 
                         Swal2.fire({
-                            position: 'top',
+                            position: 'center',
                             icon: 'success',
                             title: 'Add to cart success',
                             showConfirmButton: false,
@@ -90,7 +90,8 @@ export const searchText = (search) => {
         .then((res) => {
             if(search.length === 0){
                 dispatch({
-                    type: 'SEARCH_DATA_SUCCESS'
+                    type: 'SEARCH_DATA_SUCCESS',
+                    payload: null
                 })
             }else{
                 dispatch({

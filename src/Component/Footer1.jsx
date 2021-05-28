@@ -3,8 +3,8 @@ import React from 'react';
 export default class Footer1 extends React.Component{
     render(){
         return(
-            <div className="bg-light">
-                <div className="container-md">
+            <div className="bg-warning">
+                <div className="container-xl">
                     <div className="py-5 py-md-4">
                         <b className="d-none d-md-block">Toko Furnitur Online, Solusi Untuk Kebutuhan Furniture Minimalis & Modernmu</b>
                         <p className="d-block d-md-none mt-2">
@@ -33,7 +33,7 @@ export default class Footer1 extends React.Component{
                             sebuah toko furniture online yang berfokus pada loose furniture rumah minimalis, 
                             modern dan perencanaan serta pengerjaan desain interior baik itu untuk rumah, apartemen, hingga kantor.
                         </p>
-                        <hr className="mb-5" />
+                        <hr className="mb-2" />
                     </div>
                 </div>
             </div>
